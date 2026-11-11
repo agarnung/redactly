@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Privacy-first screenshot assistant: Gemini Nano redacts secrets on-device; only a sanitized payload goes to the cloud.">
+  <title>Redactly — Privacy-first hybrid inference</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <p class="eyebrow">FIREBASE AI LOGIC · HYBRID INFERENCE</p>
+      <h1>Redactly <span>Web</span></h1>
+      <p class="sub">Share the screen, not your secrets. Gemini Nano redacts emails, keys, tokens, IBANs and other secrets on-device and draws black boxes over them; only the sanitized payload is sent to the cloud.</p>
+      <div class="badges">
+        <span class="badge" id="configBadge" data-tip="Firebase AI Logic + App Check when firebase-config.js is present">checking config…</span>
+        <span class="badge" id="deviceBadge" data-tip="Gemini Nano availability in Chrome 139+">on-device: unknown</span>
+        <span class="badge" id="privacyBadge" data-tip="The raw image stays local; only the chosen sanitized payload is sent">privacy: image stays local</span>
+      </div>
+    </header>
+
+    <section class="card">
+      <ol class="stepper" id="stepper">
+        <li data-step="1" class="active" aria-current="step"><span>1</span> Capture</li>
+        <li data-step="2"><span>2</span> Redact</li>
+        <li data-step="3"><span>3</span> Ask</li>
+      </ol>
+
+      <div class="grid">
+        <div>
+          <label class="label" for="imageInput">Screenshot</label>
+          <input id="imageInput" type="file" accept="image/png,image/jpeg">
+          <div class="row sample-row">
+            <select id="sampleSelect" aria-label="Sample screenshot">
+              <option value="sample.png">API 401 (.env)</option>
+              <option value="sample-support.png">Support ticket</option>
+              <option value="sample-bank.png">Bank statement</option>
+            </select>
+            <button id="sampleBtn" class="ghost small">Load sample</button>
+          </div>
+          <div class="preview" id="preview">
+            <span id="previewEmpty">No image selected</span>
+            <div class="preview-inner" id="previewInner" hidden>
+              <img id="previewImg" alt="Selected screenshot">
+              <canvas id="boxCanvas" aria-label="Redaction boxes: drag to add, click to remove"></canvas>
+            </div>
+          </div>
+          <div class="hint">Drag on the screenshot to add a manual redaction box; click a box to remove it.</div>
+          <button id="resetBoxesBtn" class="ghost small" disabled>Reset manual boxes</button>
+        </div>
+
+        <div>
+          <label class="label" for="prompt">Question</label>
+          <textarea id="prompt" rows="4" placeholder="Translate the visible text, explain this error, or ask about the UI…"></textarea>
+          <div class="privacy-note">
+            <strong>Privacy pipeline:</strong> the raw screenshot is processed on-device.
+            The cloud receives only the payload you choose below; the raw image is never uploaded.
+          </div>
+          <div class="row">
+            <span class="label">Cloud payload</span>
+            <div class="segmented" id="payloadGroup" role="radiogroup" aria-label="Cloud payload">
+              <button type="button" class="seg-btn selected" data-value="text" role="radio" aria-checked="true">Text</button>
+              <button type="button" class="seg-btn" data-value="image" role="radio" aria-checked="false">Redacted image</button>
+              <button type="button" class="seg-btn" data-value="both" role="radio" aria-checked="false">Both</button>
+            </div>
+            <select id="payload" class="sr-only" tabindex="-1" aria-hidden="true">
+              <option value="text" selected>Sanitized text only (default)</option>
+              <option value="image">Redacted image only</option>
+              <option value="both">Redacted image + sanitized text</option>
+            </select>
+          </div>
+          <div class="row">
+            <span class="label">Route</span>
+            <div class="segmented" id="routeModeGroup" role="radiogroup" aria-label="Inference route">
+              <button type="button" class="seg-btn selected" data-value="auto" role="radio" aria-checked="true">Auto</button>
+              <button type="button" class="seg-btn" data-value="on-device" role="radio" aria-checked="false">On-device</button>
+              <button type="button" class="seg-btn" data-value="cloud" role="radio" aria-checked="false">Cloud</button>
+            </div>
+            <select id="routeMode" class="sr-only" tabindex="-1" aria-hidden="true">
+              <option value="auto" selected>Auto (hybrid)</option>
+              <option value="on-device">Force on-device</option>
+              <option value="cloud">Force cloud</option>
+            </select>
+          </div>
+          <div class="row buttons">
+            <button id="redactBtn" class="primary">Redact on-device</button>
+            <button id="quickBtn">⚡ Quick answer</button>
+            <button id="deepBtn">☁ Deep answer</button>
+          </div>
+          <div class="row buttons">
+            <button id="explainBtn">Explain</button>
+            <button id="translateBtn">Translate</button>
+            <button id="askBtn">Ask (auto)</button>
+            <button id="availabilityBtn" class="ghost">Check on-device</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="statusline" role="status" aria-live="polite">
+        <span class="dot" id="dot"></span>
+        <span id="status">Ready.</span>
+        <span class="route-badge" id="routeBadge" data-tip="Auto: on-device for short questions, cloud for complex ones">route: —</span>
+      </div>
+      <div class="progress" id="progress" hidden><span></span></div>
+      <pre id="output" class="output" aria-live="polite">The answer will appear here.</pre>
+
+      <div class="risk-card" id="riskCard">
+        <div class="risk-head">Privacy risk summary</div>
+        <div class="risk-grid">
+          <div><strong id="riskRedactions">0</strong><span>redactions</span></div>
+          <div><strong id="riskSent">0</strong><span>secrets sent</span></div>
+          <div><strong id="riskRaw">0 B</strong><span>raw image uploaded</span></div>
+          <div><strong id="riskPayload">0 B</strong><span>payload</span></div>
+          <div><strong id="riskDevice">0</strong><span>on-device calls</span></div>
+          <div><strong id="riskCloud">0</strong><span>cloud calls</span></div>
+        </div>
+        <div class="risk-note" id="riskNote">Raw screenshot on device: 0 B.</div>
+      </div>
+
+      <div class="privacy-grid">
+        <div>
+          <div class="label">Redacted image (safe to share)</div>
+          <div class="preview redacted-preview" id="redactedPreview">Redact the screenshot first.</div>
+          <button id="downloadBtn" class="ghost small" disabled>Download redacted PNG</button>
+          <div class="compare" id="compareWrap" hidden>
+            <div class="compare-inner" id="compareInner">
+              <img id="compareRaw" alt="Original screenshot">
+              <img id="compareRedacted" class="compare-redacted" alt="Redacted screenshot">
+            </div>
+            <input id="compareRange" class="compare-range" type="range" min="0" max="100" value="50" aria-label="Compare original and redacted">
+            <div class="compare-labels"><span>Redacted</span><span>Original</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="label">Privacy receipt</div>
+          <div class="receipt-row">
+            <code id="receiptHash">sha256:—</code>
+            <button id="viewReceiptBtn" class="ghost small" disabled>View receipt</button>
+            <button id="receiptBtn" class="ghost small" disabled>Download receipt JSON</button>
+          </div>
+          <div class="label receipt-label">Sanitized text sent to the cloud</div>
+          <pre id="sanitized" class="output small-output">Redact the screenshot first.</pre>
+        </div>
+      </div>
+
+      <div class="privacy-grid">
+        <div>
+          <div class="label">Redactions found on-device</div>
+          <ul id="findings" class="findings"><li>No redactions yet.</li></ul>
+        </div>
+        <div>
+          <div class="label">Privacy ledger (every cloud call)</div>
+          <ul id="ledger" class="ledger"><li>No cloud calls yet.</li></ul>
+          <div class="guarantees">
+            <div>Raw screenshot uploaded: <strong>never</strong></div>
+            <div>Leak check before every cloud call: <strong>on</strong></div>
+            <div>Visual boxes drawn: <strong>on-device</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>Firebase AI Logic hybrid inference · Gemini Nano on-device (Chrome) + Gemini cloud fallback</span>
+      <span>No screenshot leaves the device unless you explicitly choose a redacted image payload.</span>
+    </footer>
+  </main>
+
+  <dialog id="receiptDialog" class="dialog">
+    <div class="dialog-head">
+      <h2>Privacy receipt</h2>
+      <button id="closeReceiptBtn" class="icon-btn" aria-label="Close receipt">×</button>
+    </div>
+    <p class="dialog-sub">SHA-256 hashes, payload mode, route, latency and redaction types. The raw image is not in this receipt.</p>
+    <pre id="receiptJson" class="output receipt-json"></pre>
+    <div class="dialog-actions">
+      <button id="copyReceiptBtn" class="ghost">Copy JSON</button>
+      <button id="downloadReceiptBtn" class="primary">Download JSON</button>
+    </div>
+  </dialog>
+
+  <div id="snackbar" class="snackbar" role="status" aria-live="polite"></div>
+
+  <script src="firebase-config.js" onerror="console.warn('firebase-config.js not found; running in mock mode')"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

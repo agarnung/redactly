@@ -1,0 +1,72 @@
+{
+  "image": "sample-bank.png",
+  "width": 1600,
+  "height": 900,
+  "label": "Bank statement",
+  "boxes": [
+    {
+      "value": "Ana Garc\u00eda",
+      "type": "name",
+      "x": 0.33422,
+      "y": 0.20444,
+      "w": 0.07529,
+      "h": 0.02889
+    },
+    {
+      "value": "ES91 2100 0418 4502 0005 1332",
+      "type": "IBAN",
+      "x": 0.25893,
+      "y": 0.24444,
+      "w": 0.21835,
+      "h": 0.02889
+    },
+    {
+      "value": "4111 1111 1111 1111",
+      "type": "credit card",
+      "x": 0.25893,
+      "y": 0.28444,
+      "w": 0.14306,
+      "h": 0.02889
+    },
+    {
+      "value": "ana.garcia@example.com",
+      "type": "email",
+      "x": 0.26646,
+      "y": 0.36444,
+      "w": 0.16564,
+      "h": 0.02889
+    },
+    {
+      "value": "+34 612 345 678",
+      "type": "phone",
+      "x": 0.26646,
+      "y": 0.40444,
+      "w": 0.11294,
+      "h": 0.02889
+    },
+    {
+      "value": "Calle Mayor 12, 33201 Gij\u00f3n",
+      "type": "address",
+      "x": 0.28151,
+      "y": 0.44444,
+      "w": 0.20329,
+      "h": 0.02889
+    },
+    {
+      "value": "Ana Garc\u00eda",
+      "type": "name",
+      "x": 0.28151,
+      "y": 0.72444,
+      "w": 0.07529,
+      "h": 0.02889
+    },
+    {
+      "value": "eyJhbGciOiJIUzI1NiJ9.FAKE.signature",
+      "type": "JWT",
+      "x": 0.69133,
+      "y": 0.20222,
+      "w": 0.19756,
+      "h": 0.02333
+    }
+  ]
+}

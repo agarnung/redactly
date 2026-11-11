@@ -1,0 +1,88 @@
+{
+  "image": "sample-support.png",
+  "width": 1600,
+  "height": 900,
+  "label": "Support ticket",
+  "boxes": [
+    {
+      "value": "Ana Garc\u00eda",
+      "type": "name",
+      "x": 0.28904,
+      "y": 0.20444,
+      "w": 0.07529,
+      "h": 0.02889
+    },
+    {
+      "value": "ana.garcia@example.com",
+      "type": "email",
+      "x": 0.26646,
+      "y": 0.24444,
+      "w": 0.16564,
+      "h": 0.02889
+    },
+    {
+      "value": "+34 612 345 678",
+      "type": "phone",
+      "x": 0.26646,
+      "y": 0.28444,
+      "w": 0.11294,
+      "h": 0.02889
+    },
+    {
+      "value": "Calle Mayor 12, 33201 Gij\u00f3n",
+      "type": "address",
+      "x": 0.28151,
+      "y": 0.32444,
+      "w": 0.20329,
+      "h": 0.02889
+    },
+    {
+      "value": "ORD-2026-4821",
+      "type": "order ID",
+      "x": 0.26646,
+      "y": 0.36444,
+      "w": 0.09788,
+      "h": 0.02889
+    },
+    {
+      "value": "4111 1111 1111 1111",
+      "type": "credit card",
+      "x": 0.25893,
+      "y": 0.40444,
+      "w": 0.14306,
+      "h": 0.02889
+    },
+    {
+      "value": "sk_demo_51NxFAKE1234567890abcdef",
+      "type": "API key",
+      "x": 0.28151,
+      "y": 0.52444,
+      "w": 0.24094,
+      "h": 0.02889
+    },
+    {
+      "value": "1Z999AA10123456784",
+      "type": "tracking number",
+      "x": 0.28904,
+      "y": 0.56444,
+      "w": 0.13553,
+      "h": 0.02889
+    },
+    {
+      "value": "Ana Garc\u00eda",
+      "type": "name",
+      "x": 0.26646,
+      "y": 0.76444,
+      "w": 0.07529,
+      "h": 0.02889
+    },
+    {
+      "value": "eyJhbGciOiJIUzI1NiJ9.FAKE.signature",
+      "type": "JWT",
+      "x": 0.69133,
+      "y": 0.27778,
+      "w": 0.19756,
+      "h": 0.02333
+    }
+  ]
+}

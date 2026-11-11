@@ -1,0 +1,8 @@
+firebase-config.js
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+video/*.mp4
+video/*.mov
+video/*.webm

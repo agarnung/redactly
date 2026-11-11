@@ -1,0 +1,10 @@
+{
+  "name": "redactly",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Privacy-first screenshot assistant with Firebase AI Logic hybrid inference",
+  "scripts": {
+    "test": "node tests-redaction.mjs && node tests-routing.mjs && node tests-receipt.mjs"
+  }
+}

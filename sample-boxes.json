@@ -1,0 +1,119 @@
+{
+  "image": "sample.png",
+  "width": 1600,
+  "height": 900,
+  "boxes": [
+    {
+      "value": "sk_demo_51NxFAKE1234567890abcdef",
+      "type": "API key",
+      "x": 0.36281,
+      "y": 0.20444,
+      "w": 0.265,
+      "h": 0.03111
+    },
+    {
+      "value": "sk-proj-FAKE1234567890abcdefghijklmnop",
+      "type": "API key",
+      "x": 0.33797,
+      "y": 0.24444,
+      "w": 0.31469,
+      "h": 0.03111
+    },
+    {
+      "value": "postgres://admin:hunter2@db.internal:5432/payments",
+      "type": "database URL",
+      "x": 0.32141,
+      "y": 0.28444,
+      "w": 0.41406,
+      "h": 0.03111
+    },
+    {
+      "value": "ana.garcia@example.com",
+      "type": "email",
+      "x": 0.32969,
+      "y": 0.32444,
+      "w": 0.18219,
+      "h": 0.03111
+    },
+    {
+      "value": "ES91 2100 0418 4502 0005 1332",
+      "type": "IBAN",
+      "x": 0.32969,
+      "y": 0.36444,
+      "w": 0.24016,
+      "h": 0.03111
+    },
+    {
+      "value": "4111 1111 1111 1111",
+      "type": "credit card",
+      "x": 0.31312,
+      "y": 0.40444,
+      "w": 0.15734,
+      "h": 0.03111
+    },
+    {
+      "value": "+34 612 345 678",
+      "type": "phone",
+      "x": 0.26344,
+      "y": 0.44444,
+      "w": 0.12422,
+      "h": 0.03111
+    },
+    {
+      "value": "ghp_FAKE1234567890abcdefghijklmn",
+      "type": "GitHub token",
+      "x": 0.32141,
+      "y": 0.48444,
+      "w": 0.265,
+      "h": 0.03111
+    },
+    {
+      "value": "AKIAIOSFODNN7EXAMPLE",
+      "type": "AWS access key",
+      "x": 0.36281,
+      "y": 0.52444,
+      "w": 0.16562,
+      "h": 0.03111
+    },
+    {
+      "value": "Ana Garc\u00eda",
+      "type": "name",
+      "x": 0.28828,
+      "y": 0.72444,
+      "w": 0.08281,
+      "h": 0.03111
+    },
+    {
+      "value": "ana.garcia@example.com",
+      "type": "email",
+      "x": 0.38766,
+      "y": 0.72444,
+      "w": 0.18219,
+      "h": 0.03111
+    },
+    {
+      "value": "eyJhbGciOiJIUzI1NiJ9.FAKE.signature",
+      "type": "JWT",
+      "x": 0.69285,
+      "y": 0.20222,
+      "w": 0.21089,
+      "h": 0.02444
+    },
+    {
+      "value": "Ana Garc\u00eda",
+      "type": "name",
+      "x": 0.66875,
+      "y": 0.42889,
+      "w": 0.06025,
+      "h": 0.02444
+    },
+    {
+      "value": "ana.garcia@example.com",
+      "type": "email",
+      "x": 0.74105,
+      "y": 0.42889,
+      "w": 0.13256,
+      "h": 0.02444
+    }
+  ]
+}

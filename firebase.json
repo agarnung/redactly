@@ -1,0 +1,28 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "README.md",
+      "DEPLOY.md",
+      "make_sample.py",
+      "tests-redaction.mjs",
+      "tests-routing.mjs",
+      "tests-receipt.mjs",
+      "sample-*-boxes.json",
+      "SUBMISSION.md",
+      "VIDEO-SCRIPT.md",
+      "PRIVACY.md",
+      "video/**",
+      "screenshot*.png"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
