@@ -69,6 +69,33 @@ const closeReceiptBtn = $("closeReceiptBtn");
 const downloadReceiptBtn = $("downloadReceiptBtn");
 const payloadGroup = $("payloadGroup");
 const routeModeGroup = $("routeModeGroup");
+const themeToggle = $("themeToggle");
+
+const THEME_KEY = "redactly-theme";
+function applyTheme(theme) {
+  const dark = theme !== "light";
+  document.documentElement.dataset.theme = dark ? "dark" : "light";
+  if (!themeToggle) return;
+  themeToggle.textContent = dark ? "☀" : "☾";
+  themeToggle.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+  themeToggle.setAttribute("aria-pressed", String(!dark));
+  themeToggle.title = dark ? "Switch to light theme" : "Switch to dark theme";
+}
+function initialTheme() {
+  try {
+    const stored = localStorage.getItem(THEME_KEY);
+    if (stored === "light" || stored === "dark") return stored;
+  } catch {}
+  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+}
+applyTheme(initialTheme());
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+    applyTheme(next);
+    try { localStorage.setItem(THEME_KEY, next); } catch {}
+  });
+}
 
 const cfg = window.FIREBASE_CONFIG || {};
 const configured =
@@ -1230,6 +1257,9 @@ if (!configured) {
   deviceBadge.textContent = "on-device: mock demo";
 }
 const params = new URLSearchParams(location.search);
+if (params.get("theme") === "light" || params.get("theme") === "dark") {
+  applyTheme(params.get("theme"));
+}
 if (["text", "image", "both"].includes(params.get("payload"))) {
   payloadEl.value = params.get("payload");
 }

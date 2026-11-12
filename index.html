@@ -1,16 +1,28 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Privacy-first screenshot assistant: Gemini Nano redacts secrets on-device; only a sanitized payload goes to the cloud.">
   <title>Redactly — Privacy-first hybrid inference</title>
+  <script>
+    try {
+      const stored = localStorage.getItem("redactly-theme");
+      const theme = stored === "light" || stored === "dark"
+        ? stored
+        : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      document.documentElement.dataset.theme = theme;
+    } catch {}
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="wrap">
     <header class="hero">
-      <p class="eyebrow">FIREBASE AI LOGIC · HYBRID INFERENCE</p>
+      <div class="hero-top">
+        <p class="eyebrow">FIREBASE AI LOGIC · HYBRID INFERENCE</p>
+        <button id="themeToggle" class="icon-btn theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme">☀</button>
+      </div>
       <h1>Redactly <span>Web</span></h1>
       <p class="sub">Share the screen, not your secrets. Gemini Nano redacts emails, keys, tokens, IBANs and other secrets on-device and draws black boxes over them; only the sanitized payload is sent to the cloud.</p>
       <div class="badges">

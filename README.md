@@ -10,7 +10,9 @@ emails, API keys, tokens, IBANs, card numbers and other secrets, and draws black
 boxes over them. The cloud model receives only the sanitized payload the user
 explicitly chooses.
 
-![Demo](screenshot.png)
+![Redactly dark theme](screenshot.png)
+
+![Redactly light theme](screenshot-light.png)
 
 ## What it does
 
@@ -22,6 +24,7 @@ explicitly chooses.
 - SHA-256 privacy receipt, risk card and privacy ledger.
 - Three synthetic scenarios: API 401, support ticket and bank statement.
 - Mock mode for offline demos and Node tests for the pure logic.
+- Light/dark theme toggle in the header, persisted in `localStorage`.
 
 ## Hosted demo
 
