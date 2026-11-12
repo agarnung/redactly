@@ -32,8 +32,9 @@ run the Quick or Deep route and fill the receipt, risk card and privacy ledger.
 ## Important
 
 - `firebase-config.js` is gitignored. Do not commit it with real keys.
-- For local App Check, set `appCheckDebugToken: true` in `firebase-config.js` and register the debug token printed by Chrome.
-- For production, keep `appCheckDebugToken: false`, use a real reCAPTCHA v3 site key, and add `redactly-dbb56.web.app` and `redactly-dbb56.firebaseapp.com` to the reCAPTCHA allowed domains.
+- For local App Check, set `appCheckDebugToken: true` in `firebase-config.js` and register the debug token printed by Chrome; or set it to a fixed UUID and register that value.
+- `appCheckProvider` can be `"v3"` or `"enterprise"`. The console may warn that reCAPTCHA Classic is deprecated; v3 still works for the hackathon. If only reCAPTCHA Enterprise (Fraud Defense) is offered, create an Enterprise key and set `appCheckProvider: "enterprise"`.
+- For production, keep `appCheckDebugToken: false`, use a real reCAPTCHA v3/Enterprise site key, and add `redactly-dbb56.web.app` and `redactly-dbb56.firebaseapp.com` to the allowed domains.
 - On-device inference needs Chrome 139+ and the Prompt API flag.
 - The raw screenshot is never uploaded; only the selected sanitized payload leaves
   the device.

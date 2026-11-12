@@ -625,9 +625,14 @@ async function ensureFirebase(mode) {
     if (cfg.recaptchaSiteKey && !String(cfg.recaptchaSiteKey).includes("<")) {
       if (cfg.appCheckDebugToken === true) {
         self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+      } else if (typeof cfg.appCheckDebugToken === "string" && cfg.appCheckDebugToken.length > 0) {
+        self.FIREBASE_APPCHECK_DEBUG_TOKEN = cfg.appCheckDebugToken;
       }
+      const provider = cfg.appCheckProvider === "enterprise"
+        ? new modules.ReCaptchaEnterpriseProvider(cfg.recaptchaSiteKey)
+        : new modules.ReCaptchaV3Provider(cfg.recaptchaSiteKey);
       modules.initializeAppCheck(firebaseApp, {
-        provider: new modules.ReCaptchaV3Provider(cfg.recaptchaSiteKey),
+        provider,
         isTokenAutoRefreshEnabled: true,
       });
       appCheckReady = true;

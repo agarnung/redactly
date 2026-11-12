@@ -9,11 +9,14 @@ window.FIREBASE_CONFIG = {
   messagingSenderId: "<sender-id>",
   // Optional: override the default cloud model for the cloud leg.
   // cloudModel: "gemini-3.5-flash-lite",
-  // For App Check, set a reCAPTCHA v3 site key and add the hosting domain
+  // For App Check, set a reCAPTCHA site key and add the hosting domain
   // (and localhost) to the reCAPTCHA allowed domains.
-  recaptchaSiteKey: "<recaptcha-v3-site-key>",
-  // Local development only: set true to print a debug token in the console,
-  // then register it in Firebase Console -> App Check -> Manage debug tokens.
-  // Keep false for the hosted demo so judges use reCAPTCHA, not your debug token.
+  // Use "v3" for reCAPTCHA v3 or "enterprise" for reCAPTCHA Enterprise
+  // (Google Cloud Fraud Defense).
+  recaptchaSiteKey: "<recaptcha-site-key>",
+  appCheckProvider: "v3",
+  // Local development: true prints a random debug token; a string uses a fixed
+  // debug token that you register in Firebase Console -> App Check -> Manage
+  // debug tokens. Keep false for the hosted reCAPTCHA demo.
   appCheckDebugToken: false
 };
