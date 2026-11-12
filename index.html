@@ -21,7 +21,7 @@
     <header class="hero">
       <div class="hero-top">
         <p class="eyebrow">FIREBASE AI LOGIC · HYBRID INFERENCE</p>
-        <button id="themeToggle" class="icon-btn theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme" data-tip="Toggle light/dark theme">☀</button>
+        <button id="themeToggle" class="icon-btn theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme" data-tip="Toggle light/dark theme"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
       </div>
       <h1>Redactly <span>Web</span></h1>
       <p class="sub">Share the screen, not your secrets. Gemini Nano redacts sensitive data on-device; only sanitized data reaches the cloud.</p>
@@ -59,7 +59,11 @@
             <button id="sampleBtn" class="ghost small" data-tip="Load the selected synthetic sample">Load sample</button>
           </div>
           <div class="preview" id="preview">
-            <span id="previewEmpty">No image selected</span>
+            <div class="preview-empty" id="previewEmpty">
+              <span class="preview-empty-icon" aria-hidden="true">🖼</span>
+              <strong>No screenshot yet</strong>
+              <span class="preview-empty-sub" id="previewEmptyText">Drop a PNG/JPEG or load a sample to start.</span>
+            </div>
             <div class="preview-inner" id="previewInner" hidden>
               <img id="previewImg" alt="Selected screenshot">
               <canvas id="boxCanvas" aria-label="Redaction boxes: drag to add, click to remove"></canvas>
@@ -69,7 +73,7 @@
           <div class="row sample-row">
             <button id="availabilityBtn" class="ghost small" data-tip="Check Gemini Nano availability">Check on-device</button>
           </div>
-          <button id="resetBoxesBtn" class="ghost small" disabled data-tip="Remove all manual redaction boxes">Reset manual boxes</button>
+          <span class="tip-wrap" data-tip="Remove all manual redaction boxes"><button id="resetBoxesBtn" class="ghost small" disabled>Reset manual boxes</button></span>
         </div>
 
         <div>
@@ -110,13 +114,13 @@
             </select>
           </div>
           <div class="row buttons">
-            <button id="quickBtn" data-tip="Answer on-device with a short prompt">⚡ Quick answer</button>
-            <button id="deepBtn" data-tip="Send the sanitized payload to the cloud">☁ Deep answer</button>
+            <span class="tip-wrap" data-tip="Answer on-device with a short prompt"><button id="quickBtn">⚡ Quick answer</button></span>
+            <span class="tip-wrap" data-tip="Send the sanitized payload to the cloud"><button id="deepBtn">☁ Deep answer</button></span>
           </div>
           <div class="row buttons">
-            <button id="explainBtn" data-tip="Explain the visible content on-device">Explain</button>
-            <button id="translateBtn" data-tip="Translate the visible text on-device">Translate</button>
-            <button id="askBtn" data-tip="Auto-route the question">Ask (auto)</button>
+            <span class="tip-wrap" data-tip="Explain the visible content on-device"><button id="explainBtn">Explain</button></span>
+            <span class="tip-wrap" data-tip="Translate the visible text on-device"><button id="translateBtn">Translate</button></span>
+            <span class="tip-wrap" data-tip="Auto-route the question"><button id="askBtn">Ask (auto)</button></span>
           </div>
         </div>
       </div>
@@ -148,7 +152,7 @@
         <div>
           <div class="label">Redacted image (safe to share)</div>
           <div class="preview redacted-preview" id="redactedPreview">Redact the screenshot first.</div>
-          <button id="downloadBtn" class="ghost small" disabled data-tip="Download the redacted PNG">Download redacted PNG</button>
+          <span class="tip-wrap" data-tip="Download the redacted PNG"><button id="downloadBtn" class="ghost small" disabled>Download redacted PNG</button></span>
           <div class="compare" id="compareWrap" hidden>
             <div class="compare-inner" id="compareInner">
               <img id="compareRaw" alt="Original screenshot">
@@ -162,8 +166,8 @@
           <div class="label">Privacy receipt</div>
           <div class="receipt-row">
             <code id="receiptHash">sha256:—</code>
-            <button id="viewReceiptBtn" class="ghost small" disabled data-tip="View the SHA-256 privacy receipt">View receipt</button>
-            <button id="receiptBtn" class="ghost small" disabled data-tip="Download the receipt JSON">Download receipt JSON</button>
+            <span class="tip-wrap" data-tip="View the SHA-256 privacy receipt"><button id="viewReceiptBtn" class="ghost small" disabled>View receipt</button></span>
+            <span class="tip-wrap" data-tip="Download the receipt JSON"><button id="receiptBtn" class="ghost small" disabled>Download receipt JSON</button></span>
           </div>
           <div class="label receipt-label">Sanitized text sent to the cloud</div>
           <pre id="sanitized" class="output small-output">Redact the screenshot first.</pre>

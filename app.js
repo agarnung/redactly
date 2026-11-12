@@ -26,6 +26,7 @@ const imageInput = $("imageInput");
 const dropzone = $("dropzone");
 const preview = $("preview");
 const previewEmpty = $("previewEmpty");
+const previewEmptyText = $("previewEmptyText");
 const previewInner = $("previewInner");
 const previewImg = $("previewImg");
 const boxCanvas = $("boxCanvas");
@@ -73,11 +74,13 @@ const routeModeGroup = $("routeModeGroup");
 const themeToggle = $("themeToggle");
 
 const THEME_KEY = "redactly-theme";
+const SUN_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+const MOON_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>';
 function applyTheme(theme) {
   const dark = theme !== "light";
   document.documentElement.dataset.theme = dark ? "dark" : "light";
   if (!themeToggle) return;
-  themeToggle.textContent = dark ? "☀" : "☾";
+  themeToggle.innerHTML = dark ? SUN_ICON : MOON_ICON;
   themeToggle.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
   themeToggle.setAttribute("aria-pressed", String(!dark));
   themeToggle.title = dark ? "Switch to light theme" : "Switch to dark theme";
@@ -412,7 +415,7 @@ function showPreview(file) {
   boxCanvas.hidden = true;
   if (!file) {
     previewEmpty.hidden = false;
-    previewEmpty.textContent = "No image selected";
+    if (previewEmptyText) previewEmptyText.textContent = "Drop a PNG/JPEG or load a sample to start.";
     currentImage = null;
     currentFileSize = 0;
     originalDataUrl = "";

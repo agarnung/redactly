@@ -260,3 +260,14 @@ input[type=file]:focus,textarea:focus,select:focus{border-color:var(--md-seconda
 
 /* Ask section spacing */
 .ask-label{margin-top:16px}
+
+/* Empty preview state */
+[hidden]{display:none!important}
+.preview-empty{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:20px}
+.preview-empty-icon{font-size:28px;line-height:1;filter:grayscale(.15);opacity:.9}
+.preview-empty strong{color:var(--text);font-size:15px}
+.preview-empty-sub{color:var(--muted);font-size:12px;max-width:280px}
+
+/* Tooltip wrapper for disabled buttons */
+.tip-wrap{position:relative;display:inline-flex}
+.theme-toggle svg{width:18px;height:18px;display:block}
