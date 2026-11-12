@@ -164,62 +164,61 @@ input[type=file]:focus,textarea:focus,select:focus{border-color:var(--md-seconda
 /* Light theme */
 :root[data-theme="light"]{
   color-scheme:light;
-  --bg:#f6f8fc;
-  --panel:#ffffff;
-  --line:#d7dfeb;
-  --text:#0f172a;
-  --muted:#5b6b82;
+  --bg:#e7ecf3;
+  --panel:#f2f5f9;
+  --line:#cbd5e2;
+  --text:#263449;
+  --muted:#5d6b80;
   --green:#15803d;
   --blue:#0369a1;
   --amber:#b45309;
   --red:#b91c1c;
-  --md-primary:#16a34a;
+  --md-primary:#15803d;
   --md-on-primary:#ffffff;
-  --md-primary-container:rgba(22,163,74,.12);
-  --md-secondary:#0284c7;
-  --md-surface:#f6f8fc;
-  --md-surface-1:#ffffff;
-  --md-surface-2:#eef3f9;
-  --md-on-surface:#0f172a;
-  --md-on-surface-variant:#5b6b82;
-  --md-outline:#cbd5e1;
+  --md-primary-container:rgba(21,128,61,.12);
+  --md-secondary:#0369a1;
+  --md-surface:#e7ecf3;
+  --md-surface-1:#f2f5f9;
+  --md-surface-2:#e2e9f2;
+  --md-on-surface:#263449;
+  --md-on-surface-variant:#5d6b80;
+  --md-outline:#c3cedd;
   --md-error:#b91c1c;
   --md-warning:#b45309;
   --elev-1:0 1px 2px rgba(15,23,42,.08),0 1px 3px rgba(15,23,42,.06);
   --elev-2:0 8px 24px rgba(15,23,42,.12),0 2px 6px rgba(15,23,42,.08);
   --elev-3:0 20px 50px rgba(15,23,42,.18),0 6px 18px rgba(15,23,42,.1);
 }
-:root[data-theme="light"] body{background:radial-gradient(1200px 600px at 20% -10%,#dbeafe 0,var(--bg) 55%)}
-:root[data-theme="light"] .card{background:rgba(255,255,255,.92);border-color:var(--line)}
+:root[data-theme="light"] body{background:radial-gradient(1200px 600px at 20% -10%,#d9e3ef 0,var(--bg) 55%)}
+:root[data-theme="light"] .card{background:rgba(242,245,249,.94);border-color:var(--line)}
 :root[data-theme="light"] .card:hover{border-color:#b8c4d6}
-:root[data-theme="light"] .badge{background:#fff;border-color:var(--line);color:var(--muted)}
+:root[data-theme="light"] .badge{background:#f7f9fc;border-color:var(--line);color:var(--muted)}
 :root[data-theme="light"] .badge:hover{background:var(--md-surface-2)}
 :root[data-theme="light"] input[type=file],
 :root[data-theme="light"] textarea,
-:root[data-theme="light"] select{background:#fff;color:var(--text);border-color:var(--line)}
-:root[data-theme="light"] .preview{background:#f1f5f9;border-color:#cbd5e1;color:var(--muted)}
+:root[data-theme="light"] select{background:#f7f9fc;color:var(--text);border-color:var(--line)}
+:root[data-theme="light"] .preview{background:#e3eaf2;border-color:#c3cedd;color:var(--muted)}
 :root[data-theme="light"] .privacy-note{background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.25);color:#166534}
 :root[data-theme="light"] .findings li,
 :root[data-theme="light"] .ledger li,
 :root[data-theme="light"] .output,
-:root[data-theme="light"] .risk-grid div,
 :root[data-theme="light"] .receipt-row code,
 :root[data-theme="light"] .stepper li,
 :root[data-theme="light"] .route-badge,
 :root[data-theme="light"] .segmented,
-:root[data-theme="light"] .dialog{background:#fff;border-color:var(--line);color:var(--text)}
+:root[data-theme="light"] .dialog{background:#f7f9fc;border-color:var(--line);color:var(--text)}
 :root[data-theme="light"] .findings li,
 :root[data-theme="light"] .ledger li,
 :root[data-theme="light"] .output,
 :root[data-theme="light"] .receipt-row code{color:#1e293b}
-:root[data-theme="light"] .risk-grid div:hover{background:#f8fafc}
-:root[data-theme="light"] .stepper li{background:#fff}
+:root[data-theme="light"] .risk-grid div:hover{background:#1d2b40}
+:root[data-theme="light"] .stepper li{background:#f7f9fc}
 :root[data-theme="light"] .stepper li span{background:#e2e8f0;color:var(--muted)}
 :root[data-theme="light"] .stepper li.active{background:rgba(22,163,74,.1);border-color:rgba(22,163,74,.45);color:var(--text)}
 :root[data-theme="light"] .stepper li.active span{background:var(--md-primary);color:#fff}
 :root[data-theme="light"] .stepper li.complete{background:rgba(2,132,199,.08);border-color:rgba(2,132,199,.35)}
 :root[data-theme="light"] .stepper li.complete span{background:var(--md-secondary);color:#fff}
-:root[data-theme="light"] .route-badge{background:#fff;color:var(--muted)}
+:root[data-theme="light"] .route-badge{background:#f7f9fc;color:var(--muted)}
 :root[data-theme="light"] .route-badge.route-on-device{background:rgba(22,163,74,.08);color:#166534;border-color:rgba(22,163,74,.35)}
 :root[data-theme="light"] .route-badge.route-cloud{background:rgba(2,132,199,.08);color:#075985;border-color:rgba(2,132,199,.35)}
 :root[data-theme="light"] .seg-btn{color:var(--muted)}
@@ -231,10 +230,16 @@ input[type=file]:focus,textarea:focus,select:focus{border-color:var(--md-seconda
 :root[data-theme="light"] button.primary:hover:not(:disabled){background:#15803d}
 :root[data-theme="light"] button.ghost{color:var(--muted)}
 :root[data-theme="light"] button.ghost:hover:not(:disabled){background:rgba(15,23,42,.06);color:var(--text)}
-:root[data-theme="light"] .snackbar{background:#0f172a;color:#f8fafc;border-color:#334155}
-:root[data-theme="light"] .dialog{background:#fff;color:var(--text)}
+:root[data-theme="light"] .snackbar{background:#1f2c3f;color:#f8fafc;border-color:#3b4b61}
+:root[data-theme="light"] .dialog{background:#f7f9fc;color:var(--text)}
 :root[data-theme="light"] .dialog::backdrop{background:rgba(15,23,42,.35)}
-:root[data-theme="light"] .compare-inner{background:#f1f5f9;border-color:var(--line)}
+:root[data-theme="light"] .compare-inner{background:#e3eaf2;border-color:var(--line)}
 :root[data-theme="light"] .foot{color:#64748b}
-:root[data-theme="light"] .theme-toggle{background:#fff;border-color:var(--line);color:var(--text)}
-:root[data-theme="light"] .theme-toggle:hover{background:var(--md-surface-2)}
+:root[data-theme="light"] .theme-toggle{background:#f2f5f9;border-color:var(--line);color:var(--text)}
+':root[data-theme="light"] .theme-toggle:hover{background:var(--md-surface-2)}
+:root[data-theme="light"] .risk-card{background:#1f2c3f;border-color:#3b4b61;color:#f8fafc}
+:root[data-theme="light"] .risk-head,
+:root[data-theme="light"] .risk-note{color:#cbd5e1}
+:root[data-theme="light"] .risk-grid div{background:#16243a;border-color:#334155}
+:root[data-theme="light"] .risk-grid strong{color:#f8fafc}
+:root[data-theme="light"] .risk-grid span{color:#cbd5e1}
