@@ -24,6 +24,8 @@ explicitly chooses.
 - SHA-256 privacy receipt, risk card and privacy ledger.
 - Three synthetic scenarios: API 401, support ticket and bank statement.
 - Mock mode for offline demos and Node tests for the pure logic.
+- Drag-and-drop PNG/JPEG input with a styled picker.
+- Concise tooltips on every action button.
 - Light/dark theme toggle in the header, persisted in `localStorage`.
 
 ## Hosted demo

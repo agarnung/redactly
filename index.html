@@ -21,7 +21,7 @@
     <header class="hero">
       <div class="hero-top">
         <p class="eyebrow">FIREBASE AI LOGIC · HYBRID INFERENCE</p>
-        <button id="themeToggle" class="icon-btn theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme">☀</button>
+        <button id="themeToggle" class="icon-btn theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme" data-tip="Toggle light/dark theme">☀</button>
       </div>
       <h1>Redactly <span>Web</span></h1>
       <p class="sub">Share the screen, not your secrets. Gemini Nano redacts sensitive data on-device; only sanitized data reaches the cloud.</p>
@@ -42,14 +42,21 @@
       <div class="grid">
         <div>
           <label class="label" for="imageInput">Screenshot</label>
-          <input id="imageInput" type="file" accept="image/png,image/jpeg">
+          <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Choose or drop a PNG/JPEG screenshot">
+            <input id="imageInput" type="file" accept="image/png,image/jpeg">
+            <span class="dropzone-inner">
+              <span class="dropzone-icon" aria-hidden="true">⇪</span>
+              <span class="dropzone-title">Drop a PNG/JPEG here</span>
+              <span class="dropzone-sub">or click to choose a file</span>
+            </span>
+          </div>
           <div class="row sample-row">
-            <select id="sampleSelect" aria-label="Sample screenshot">
+            <select id="sampleSelect" aria-label="Sample screenshot" title="Choose a synthetic sample">
               <option value="sample.png">API 401 (.env)</option>
               <option value="sample-support.png">Support ticket</option>
               <option value="sample-bank.png">Bank statement</option>
             </select>
-            <button id="sampleBtn" class="ghost small">Load sample</button>
+            <button id="sampleBtn" class="ghost small" data-tip="Load the selected synthetic sample">Load sample</button>
           </div>
           <div class="preview" id="preview">
             <span id="previewEmpty">No image selected</span>
@@ -59,7 +66,7 @@
             </div>
           </div>
           <div class="hint">Drag on the screenshot to add a manual redaction box; click a box to remove it.</div>
-          <button id="resetBoxesBtn" class="ghost small" disabled>Reset manual boxes</button>
+          <button id="resetBoxesBtn" class="ghost small" disabled data-tip="Remove all manual redaction boxes">Reset manual boxes</button>
         </div>
 
         <div>
@@ -72,9 +79,9 @@
           <div class="row">
             <span class="label">Cloud payload</span>
             <div class="segmented" id="payloadGroup" role="radiogroup" aria-label="Cloud payload">
-              <button type="button" class="seg-btn selected" data-value="text" role="radio" aria-checked="true">Text</button>
-              <button type="button" class="seg-btn" data-value="image" role="radio" aria-checked="false">Redacted image</button>
-              <button type="button" class="seg-btn" data-value="both" role="radio" aria-checked="false">Both</button>
+              <button type="button" class="seg-btn selected" data-value="text" role="radio" aria-checked="true" data-tip="Send sanitized text only">Text</button>
+              <button type="button" class="seg-btn" data-value="image" role="radio" aria-checked="false" data-tip="Send the redacted PNG only">Redacted image</button>
+              <button type="button" class="seg-btn" data-value="both" role="radio" aria-checked="false" data-tip="Send redacted PNG + sanitized text">Both</button>
             </div>
             <select id="payload" class="sr-only" tabindex="-1" aria-hidden="true">
               <option value="text" selected>Sanitized text only (default)</option>
@@ -85,9 +92,9 @@
           <div class="row">
             <span class="label">Route</span>
             <div class="segmented" id="routeModeGroup" role="radiogroup" aria-label="Inference route">
-              <button type="button" class="seg-btn selected" data-value="auto" role="radio" aria-checked="true">Auto</button>
-              <button type="button" class="seg-btn" data-value="on-device" role="radio" aria-checked="false">On-device</button>
-              <button type="button" class="seg-btn" data-value="cloud" role="radio" aria-checked="false">Cloud</button>
+              <button type="button" class="seg-btn selected" data-value="auto" role="radio" aria-checked="true" data-tip="Route automatically">Auto</button>
+              <button type="button" class="seg-btn" data-value="on-device" role="radio" aria-checked="false" data-tip="Force on-device">On-device</button>
+              <button type="button" class="seg-btn" data-value="cloud" role="radio" aria-checked="false" data-tip="Force cloud">Cloud</button>
             </div>
             <select id="routeMode" class="sr-only" tabindex="-1" aria-hidden="true">
               <option value="auto" selected>Auto (hybrid)</option>
@@ -96,15 +103,15 @@
             </select>
           </div>
           <div class="row buttons">
-            <button id="redactBtn" class="primary">Redact on-device</button>
-            <button id="quickBtn">⚡ Quick answer</button>
-            <button id="deepBtn">☁ Deep answer</button>
+            <button id="redactBtn" class="primary" data-tip="Redact the screenshot on-device">Redact on-device</button>
+            <button id="quickBtn" data-tip="Answer on-device with a short prompt">⚡ Quick answer</button>
+            <button id="deepBtn" data-tip="Send the sanitized payload to the cloud">☁ Deep answer</button>
           </div>
           <div class="row buttons">
-            <button id="explainBtn">Explain</button>
-            <button id="translateBtn">Translate</button>
-            <button id="askBtn">Ask (auto)</button>
-            <button id="availabilityBtn" class="ghost">Check on-device</button>
+            <button id="explainBtn" data-tip="Explain the visible content on-device">Explain</button>
+            <button id="translateBtn" data-tip="Translate the visible text on-device">Translate</button>
+            <button id="askBtn" data-tip="Auto-route the question">Ask (auto)</button>
+            <button id="availabilityBtn" class="ghost" data-tip="Check Gemini Nano availability">Check on-device</button>
           </div>
         </div>
       </div>
@@ -136,7 +143,7 @@
         <div>
           <div class="label">Redacted image (safe to share)</div>
           <div class="preview redacted-preview" id="redactedPreview">Redact the screenshot first.</div>
-          <button id="downloadBtn" class="ghost small" disabled>Download redacted PNG</button>
+          <button id="downloadBtn" class="ghost small" disabled data-tip="Download the redacted PNG">Download redacted PNG</button>
           <div class="compare" id="compareWrap" hidden>
             <div class="compare-inner" id="compareInner">
               <img id="compareRaw" alt="Original screenshot">
@@ -150,8 +157,8 @@
           <div class="label">Privacy receipt</div>
           <div class="receipt-row">
             <code id="receiptHash">sha256:—</code>
-            <button id="viewReceiptBtn" class="ghost small" disabled>View receipt</button>
-            <button id="receiptBtn" class="ghost small" disabled>Download receipt JSON</button>
+            <button id="viewReceiptBtn" class="ghost small" disabled data-tip="View the SHA-256 privacy receipt">View receipt</button>
+            <button id="receiptBtn" class="ghost small" disabled data-tip="Download the receipt JSON">Download receipt JSON</button>
           </div>
           <div class="label receipt-label">Sanitized text sent to the cloud</div>
           <pre id="sanitized" class="output small-output">Redact the screenshot first.</pre>
@@ -188,13 +195,13 @@
   <dialog id="receiptDialog" class="dialog">
     <div class="dialog-head">
       <h2>Privacy receipt</h2>
-      <button id="closeReceiptBtn" class="icon-btn" aria-label="Close receipt">×</button>
+      <button id="closeReceiptBtn" class="icon-btn" aria-label="Close receipt" data-tip="Close the receipt">×</button>
     </div>
     <p class="dialog-sub">SHA-256 hashes, payload mode, route, latency and redaction types. The raw image is not in this receipt.</p>
     <pre id="receiptJson" class="output receipt-json"></pre>
     <div class="dialog-actions">
-      <button id="copyReceiptBtn" class="ghost">Copy JSON</button>
-      <button id="downloadReceiptBtn" class="primary">Download JSON</button>
+      <button id="copyReceiptBtn" class="ghost" data-tip="Copy the receipt JSON">Copy JSON</button>
+      <button id="downloadReceiptBtn" class="primary" data-tip="Download the receipt JSON">Download JSON</button>
     </div>
   </dialog>
 

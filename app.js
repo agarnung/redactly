@@ -23,6 +23,7 @@ import {
 
 const $ = (id) => document.getElementById(id);
 const imageInput = $("imageInput");
+const dropzone = $("dropzone");
 const preview = $("preview");
 const previewEmpty = $("previewEmpty");
 const previewInner = $("previewInner");
@@ -164,6 +165,7 @@ let cloudModel = null;
 const initializedModels = new WeakSet();
 let sampleFile = null;
 let sampleName = DEFAULT_SAMPLE;
+let droppedFile = null;
 let currentImage = null;
 let currentFileSize = 0;
 let originalDataUrl = "";
@@ -731,6 +733,7 @@ async function loadSample(name) {
     imageInput.value = "";
     sampleFile = new File([blob], name, { type: "image/png" });
     sampleName = name;
+    droppedFile = null;
     sampleSelect.value = name;
     resetRedactionState();
     showPreview(sampleFile);
@@ -742,7 +745,7 @@ async function loadSample(name) {
 }
 
 async function redactOnDevice() {
-  const selected = imageInput.files?.[0] || sampleFile;
+  const selected = imageInput.files?.[0] || droppedFile || sampleFile;
   if (!selected) {
     setStatus("Choose a PNG/JPEG screenshot or load a sample.", "err");
     return;
@@ -1139,10 +1142,58 @@ function downloadBlob(content, type, name) {
 imageInput.addEventListener("change", () => {
   sampleFile = null;
   sampleName = "";
+  droppedFile = null;
   resetRedactionState();
   showPreview(imageInput.files?.[0] || null);
   setStep(1);
 });
+
+if (dropzone) {
+  const setDrag = (on) => dropzone.classList.toggle("dragover", on);
+  ["dragenter", "dragover"].forEach((eventName) => {
+    dropzone.addEventListener(eventName, (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setDrag(true);
+    });
+  });
+  ["dragleave", "drop"].forEach((eventName) => {
+    dropzone.addEventListener(eventName, (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setDrag(false);
+    });
+  });
+  dropzone.addEventListener("drop", (event) => {
+    const file = event.dataTransfer?.files?.[0];
+    if (!file) return;
+    if (!/^image\/(png|jpeg)$/.test(imageType(file))) {
+      setStatus("Drop a PNG or JPEG screenshot.", "err");
+      return;
+    }
+    if (file.size > 12 * 1024 * 1024) {
+      setStatus("The screenshot is larger than 12 MB. Resize it before redacting.", "err");
+      return;
+    }
+    droppedFile = file;
+    sampleFile = null;
+    sampleName = "";
+    imageInput.value = "";
+    resetRedactionState();
+    showPreview(file);
+    setStep(1);
+    setStatus(`Dropped ${file.name}. Click Redact on-device.`, "");
+  });
+  dropzone.addEventListener("click", (event) => {
+    if (event.target !== imageInput) imageInput.click();
+  });
+  dropzone.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      imageInput.click();
+    }
+  });
+}
 
 sampleSelect.addEventListener("change", () => {
   loadSample(sampleSelect.value);
