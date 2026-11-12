@@ -40,10 +40,14 @@ included in the repository.
 npm test
 cp firebase-config.example.js firebase-config.js
 # fill firebase-config.js with your Firebase web app config
-python3 -m http.server 8080
+./scripts/serve.sh
 ```
 
-Open <http://localhost:8080> in Chrome 139+.
+The script picks the next free port from `8093`, runs the server in the
+background and writes `.run/server.pid` + `.run/server.log`. Stop it with
+`./scripts/stop.sh`.
+
+Open the printed URL in Chrome 139+.
 
 ## What was built during the submission period
 
