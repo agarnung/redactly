@@ -211,7 +211,7 @@ input[type=file]:focus,textarea:focus,select:focus{border-color:var(--md-seconda
 :root[data-theme="light"] .ledger li,
 :root[data-theme="light"] .output,
 :root[data-theme="light"] .receipt-row code{color:#1e293b}
-:root[data-theme="light"] .risk-grid div:hover{background:#1d2b40}
+:root[data-theme="light"] .risk-grid div:hover{background:#e8eef6}
 :root[data-theme="light"] .stepper li{background:#f7f9fc}
 :root[data-theme="light"] .stepper li span{background:#e2e8f0;color:var(--muted)}
 :root[data-theme="light"] .stepper li.active{background:rgba(22,163,74,.1);border-color:rgba(22,163,74,.45);color:var(--text)}
@@ -237,9 +237,13 @@ input[type=file]:focus,textarea:focus,select:focus{border-color:var(--md-seconda
 :root[data-theme="light"] .foot{color:#64748b}
 :root[data-theme="light"] .theme-toggle{background:#f2f5f9;border-color:var(--line);color:var(--text)}
 ':root[data-theme="light"] .theme-toggle:hover{background:var(--md-surface-2)}
-:root[data-theme="light"] .risk-card{background:#1f2c3f;border-color:#3b4b61;color:#f8fafc}
+:root[data-theme="light"] .risk-card{background:#dfe7f0;border-color:#c3cedd;color:#263449}
 :root[data-theme="light"] .risk-head,
-:root[data-theme="light"] .risk-note{color:#cbd5e1}
-:root[data-theme="light"] .risk-grid div{background:#16243a;border-color:#334155}
-:root[data-theme="light"] .risk-grid strong{color:#f8fafc}
-:root[data-theme="light"] .risk-grid span{color:#cbd5e1}
+:root[data-theme="light"] .risk-note{color:#5d6b80}
+:root[data-theme="light"] .risk-grid div{background:#f2f5f9;border-color:#cbd5e2}
+:root[data-theme="light"] .risk-grid strong{color:#263449}
+:root[data-theme="light"] .risk-grid span{color:#5d6b80}
+
+/* Footer links */
+.foot a{color:var(--blue);text-decoration:none;border-bottom:1px solid transparent;text-underline-offset:2px;transition:border-color var(--motion),color var(--motion)}
+.foot a:hover{border-bottom-color:currentColor;color:var(--md-secondary)}
