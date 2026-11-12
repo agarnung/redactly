@@ -25,9 +25,8 @@ explicitly chooses.
 
 ## Hosted demo
 
-`https://agarnung.github.io/redactly/` once GitHub Pages is enabled
-(Settings → Pages → Source: GitHub Actions). You can also deploy with Firebase
-Hosting; see [`DEPLOY.md`](DEPLOY.md).
+`https://redactly-dbb56.web.app` (Firebase Hosting) or
+`https://agarnung.github.io/redactly/` (GitHub Pages). See [`DEPLOY.md`](DEPLOY.md).
 
 All sample data is synthetic: no real PII, API keys or Google Cloud secrets are
 included in the repository.

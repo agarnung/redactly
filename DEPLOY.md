@@ -10,20 +10,20 @@ cd /opt/proyectos_personales/concursos/programacion/02-firebase-buildhybridai/re
 cp firebase-config.example.js firebase-config.js
 # fill firebase-config.js with your Firebase web app config
 firebase login
-firebase use --add          # select your Firebase project
+firebase use --add          # select redactly-dbb56
 firebase deploy --only hosting
 ```
 
-The CLI prints the hosting URL. Add it to the Devpost submission.
+The CLI prints `https://redactly-dbb56.web.app`. Add it to the Devpost submission.
 
 ## Demo URL for judges
 
 After deploying, use the automatic demo URLs:
 
 ```text
-https://<your-hosting-domain>/?autodemo=1&payload=both
-https://<your-hosting-domain>/?autodemo=quick&sample=sample-support.png&payload=text
-https://<your-hosting-domain>/?autodemo=1&sample=sample-bank.png&payload=image
+https://redactly-dbb56.web.app/?autodemo=1&payload=both
+https://redactly-dbb56.web.app/?autodemo=quick&sample=sample-support.png&payload=text
+https://redactly-dbb56.web.app/?autodemo=1&sample=sample-bank.png&payload=image
 ```
 
 They load a sample screenshot, redact it on-device (mock mode without config),
@@ -33,7 +33,7 @@ run the Quick or Deep route and fill the receipt, risk card and privacy ledger.
 
 - `firebase-config.js` is gitignored. Do not commit it with real keys.
 - For local App Check, set `appCheckDebugToken: true` in `firebase-config.js` and register the debug token printed by Chrome.
-- For production, keep `appCheckDebugToken: false`, use a real reCAPTCHA v3 site key, and add the hosting domain to the reCAPTCHA allowed domains.
+- For production, keep `appCheckDebugToken: false`, use a real reCAPTCHA v3 site key, and add `redactly-dbb56.web.app` and `redactly-dbb56.firebaseapp.com` to the reCAPTCHA allowed domains.
 - On-device inference needs Chrome 139+ and the Prompt API flag.
 - The raw screenshot is never uploaded; only the selected sanitized payload leaves
   the device.
