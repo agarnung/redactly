@@ -79,6 +79,10 @@
             <strong>Privacy pipeline:</strong> the raw screenshot is processed on-device.
             The cloud receives only the payload you choose below; the raw image is never uploaded.
           </div>
+          <div class="row buttons">
+            <button id="redactBtn" class="primary" data-tip="Redact the screenshot on-device">Redact on-device</button>
+          </div>
+          <div class="label ask-label">Ask</div>
           <div class="row">
             <span class="label">Cloud payload</span>
             <div class="segmented" id="payloadGroup" role="radiogroup" aria-label="Cloud payload">
@@ -105,10 +109,6 @@
               <option value="cloud">Force cloud</option>
             </select>
           </div>
-          <div class="row buttons">
-            <button id="redactBtn" class="primary" data-tip="Redact the screenshot on-device">Redact on-device</button>
-          </div>
-          <div class="label ask-label">Ask</div>
           <div class="row buttons">
             <button id="quickBtn" data-tip="Answer on-device with a short prompt">⚡ Quick answer</button>
             <button id="deepBtn" data-tip="Send the sanitized payload to the cloud">☁ Deep answer</button>
