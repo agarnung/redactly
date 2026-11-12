@@ -55,3 +55,22 @@ the file is never committed. If the secret is empty, the app runs in mock mode.
 
 The app loads `firebase-config.js` with a 404 fallback, so it still runs in mock
 mode if the config is not published.
+
+## reCAPTCHA Enterprise direct integration (fallback only)
+
+The Google Cloud key page shows the direct integration:
+
+```html
+<script src="https://www.google.com/recaptcha/enterprise.js?render=<SITE_KEY>"></script>
+```
+
+```js
+grecaptcha.enterprise.execute("<SITE_KEY>", { action: "LOGIN" })
+```
+
+The token expires after **2 minutes** and must be sent to your backend for
+assessment.
+
+For this project, do **not** add that script or call `grecaptcha.enterprise.execute`
+manually: Firebase App Check uses `ReCaptchaEnterpriseProvider` and obtains/refreshes
+the token automatically. Keep `isTokenAutoRefreshEnabled: true`.
