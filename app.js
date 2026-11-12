@@ -188,6 +188,14 @@ function setStatus(text, kind = "") {
   dot.className = "dot" + (kind ? " " + kind : "");
 }
 
+const ASK_IDS = ["quickBtn", "deepBtn", "explainBtn", "translateBtn", "askBtn"];
+function setAskEnabled(enabled) {
+  for (const id of ASK_IDS) {
+    const el = $(id);
+    if (el) el.disabled = !enabled;
+  }
+}
+
 function setBusy(busy) {
   if (progressEl) progressEl.hidden = !busy;
   for (const id of [
@@ -200,7 +208,7 @@ function setBusy(busy) {
     "availabilityBtn",
   ]) {
     const el = $(id);
-    if (el) el.disabled = busy;
+    if (el) el.disabled = busy || (ASK_IDS.includes(id) && !lastSanitized);
   }
 }
 
@@ -611,6 +619,7 @@ function resetRedactionState() {
   output.textContent = "The answer will appear here.";
   clearRouteBadge();
   setStep(1);
+  setAskEnabled(false);
   updateRiskCard();
   updatePrivacyBadge();
   drawBoxes();
@@ -1326,6 +1335,7 @@ updatePrivacyBadge();
 updateRiskCard();
 renderLedger();
 setStep(1);
+setAskEnabled(false);
 if (configured) {
   checkOnDevice();
 }

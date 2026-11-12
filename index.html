@@ -42,7 +42,7 @@
       <div class="grid">
         <div>
           <label class="label" for="imageInput">Screenshot</label>
-          <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Choose or drop a PNG/JPEG screenshot">
+          <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Choose or drop a PNG/JPEG screenshot" data-tip="Choose or drop a PNG/JPEG screenshot">
             <input id="imageInput" type="file" accept="image/png,image/jpeg">
             <span class="dropzone-inner">
               <span class="dropzone-icon" aria-hidden="true">⇪</span>
@@ -66,6 +66,9 @@
             </div>
           </div>
           <div class="hint">Drag on the screenshot to add a manual redaction box; click a box to remove it.</div>
+          <div class="row sample-row">
+            <button id="availabilityBtn" class="ghost small" data-tip="Check Gemini Nano availability">Check on-device</button>
+          </div>
           <button id="resetBoxesBtn" class="ghost small" disabled data-tip="Remove all manual redaction boxes">Reset manual boxes</button>
         </div>
 
@@ -104,6 +107,9 @@
           </div>
           <div class="row buttons">
             <button id="redactBtn" class="primary" data-tip="Redact the screenshot on-device">Redact on-device</button>
+          </div>
+          <div class="label ask-label">Ask</div>
+          <div class="row buttons">
             <button id="quickBtn" data-tip="Answer on-device with a short prompt">⚡ Quick answer</button>
             <button id="deepBtn" data-tip="Send the sanitized payload to the cloud">☁ Deep answer</button>
           </div>
@@ -111,7 +117,6 @@
             <button id="explainBtn" data-tip="Explain the visible content on-device">Explain</button>
             <button id="translateBtn" data-tip="Translate the visible text on-device">Translate</button>
             <button id="askBtn" data-tip="Auto-route the question">Ask (auto)</button>
-            <button id="availabilityBtn" class="ghost" data-tip="Check Gemini Nano availability">Check on-device</button>
           </div>
         </div>
       </div>
