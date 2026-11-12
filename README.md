@@ -34,24 +34,54 @@ explicitly chooses.
 All sample data is synthetic: no real PII, API keys or Google Cloud secrets are
 included in the repository.
 
-## Run locally
+## Test it
+
+### Mock mode (no Firebase project)
 
 ```bash
 npm test
-cp firebase-config.example.js firebase-config.js
-# fill firebase-config.js with your Firebase web app config
 ./scripts/serve.sh
 ```
 
-The script picks the next free port from `8093`, runs the server in the
-background and writes `.run/server.pid` + `.run/server.log`. Stop it with
-`./scripts/stop.sh`.
+Open the printed URL, click **Load sample**, **Redact on-device**, choose a
+payload and click **Quick answer** or **Deep answer**. Mock mode needs no network,
+no Firebase project and no real secrets. This is the fastest way to review the flow.
 
-Open the printed URL in Chrome 139+.
+### Real on-device mode (Chrome 139+)
+
+1. Enable **On-device AI** in `chrome://settings/ai`.
+2. Enable `chrome://flags/#prompt-api-for-gemini-nano-multimodal-input` and restart Chrome.
+3. In DevTools → Console run `await LanguageModel.availability()`; if it returns
+   `downloadable`, run `await LanguageModel.create()` and wait for the model.
+4. Copy `firebase-config.example.js` to `firebase-config.js` and fill in your
+   Firebase web app config. This file is gitignored; never commit it.
+5. Create a **reCAPTCHA Enterprise** key for `localhost` and the hosting domain,
+   then set `recaptchaSiteKey` and `appCheckProvider: "enterprise"`.
+6. For local App Check, register the debug token in Firebase Console or use a fixed
+   UUID in `appCheckDebugToken`. Keep `appCheckDebugToken: false` for the hosted
+   reCAPTCHA demo.
+7. `./scripts/serve.sh`, open the printed URL and click **Check on-device** and
+   **Redact on-device**.
+8. In DevTools → Network, Firebase calls must carry `X-Firebase-AppCheck`. The raw
+   screenshot must never be uploaded.
+
+The server script picks the next free port from `8093`, runs in the background and
+writes `.run/server.pid` + `.run/server.log`. Stop it with `./scripts/stop.sh`.
+
+### Troubleshooting
+
+- `on-device: unavailable` → check `chrome://settings/ai`, the Prompt API flag and
+  the model download in `chrome://components`.
+- App Check 403 → check the site key, allowed domains and debug token.
+- Port busy → the script automatically picks the next free port.
+
+No production API keys, live Google Cloud secrets or real PII are included in the
+repository or the testing instructions.
 
 ## What was built during the submission period
 
-This repository contains the Web (Chrome) demo built for the hackathon:
+This is a new repository; the web app does not use pre-existing code. It contains
+the Web (Chrome) demo built for the hackathon:
 
 - On-device Gemini Nano redaction with structured output and visual boxes.
 - Manual box editor, text sanitization and a leak check before cloud calls.
