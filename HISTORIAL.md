@@ -372,6 +372,8 @@ Se preparó toda la documentación de entrega:
 - `VIDEO-SCRIPT.md` — guion de 8 planos.
 - `VIDEO-RECORDING-GUIDE.md` — guía exacta de grabación, tiempos y edición
   (en el directorio padre del concurso).
+- `video/make_cards.py` y `video/slides/` — portada, pipeline de privacidad,
+  cierre y miniatura, con la paleta de la app (en el directorio padre).
 - `video/subtitles.srt` — subtítulos en inglés.
 - `video/audio/full-voiceover-timed.mp3` — voz completa de **160 s**
   (en el directorio padre del concurso, no en el repo).

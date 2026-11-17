@@ -2,8 +2,8 @@
 
 > **Última sesión:** repo publicado, historial de autoría corregido y **Firebase Hosting desplegado** en `https://redactly-dbb56.web.app` (200).
 > **Estado:** Gemini Nano real y App Check verificados (debug local + reCAPTCHA alojado). Pendiente: grabar vídeo y enviar Devpost. Firebase CLI se usa con `npx --yes firebase-tools` (sin instalación global).
-> **Historial completo:** [`HISTORIAL.md`](HISTORIAL.md).
-> **Vídeo:** guía y voz en el directorio padre del concurso (`VIDEO-RECORDING-GUIDE.md` y `video/audio/`).
+> **Historial completo:** [`redactly/HISTORIAL.md`](redactly/HISTORIAL.md).
+> **Vídeo:** [`VIDEO-RECORDING-GUIDE.md`](VIDEO-RECORDING-GUIDE.md) y voz en `video/audio/full-voiceover-timed.mp3`.
 > **Cierre:** **30-nov-2026, 14:00 PT = 23:00 CET**.
 > **Regla:** no enviar hasta que repo, demo y vídeo respondan **200** en incógnito.
 
@@ -109,6 +109,7 @@
 
 ## 5. Vídeo
 
+- [x] Diapositivas procedurales generadas: `video/slides/title-card.png`, `pipeline.png`, `end-card.png` y `thumbnail.png`.
 - [ ] Lee `redactly/VIDEO-SCRIPT.md`; prepara los tres samples y cierra pestañas personales.
 - [ ] Graba 1920×1080, 30 fps, sin mostrar config, debug token ni PII real.
 - [ ] Sigue los 8 planos; duración objetivo 2:25–2:40.
