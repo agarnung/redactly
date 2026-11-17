@@ -89,6 +89,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .hint{color:var(--muted);font-size:12px;margin-top:8px}
 .sample-row{justify-content:flex-start}
 .sample-row select{max-width:260px}
+.sample-label{margin:0;flex:0 0 auto}
 @media (max-width:800px){.risk-grid{grid-template-columns:repeat(2,1fr)}}
 .risk-note{margin-top:10px;color:var(--muted);font-size:12px}
 /* Material Design 3 polish: tokens, state layers, elevation, motion. */
