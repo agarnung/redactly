@@ -10,9 +10,9 @@ emails, API keys, tokens, IBANs, card numbers and other secrets, and draws black
 boxes over them. The cloud model receives only the sanitized payload the user
 explicitly chooses.
 
-![Redactly dark theme](screenshot.png)
+![Redactly dark theme](assets/screenshot.png)
 
-![Redactly light theme](screenshot-light.png)
+![Redactly light theme](assets/screenshot-light.png)
 
 ## What it does
 
@@ -104,6 +104,6 @@ the Web (Chrome) demo built for the hackathon:
   incidents and pending work.
 - [Privacy model](PRIVACY.md)
 - [Deploy](DEPLOY.md)
-- [Video script](VIDEO-SCRIPT.md)
+- [Demo video](https://youtu.be/RZJKePZXAxw)
 - [Devpost submission text](SUBMISSION.md)
 - [License](LICENSE) (GPL-3.0)
