@@ -8,3 +8,8 @@ video/*.mov
 video/*.webm
 
 .run/
+*.mp4
+*.mov
+*.webm
+*.mkv
+*.avi
