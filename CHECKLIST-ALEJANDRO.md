@@ -47,7 +47,7 @@
 - [x] Abre **App Check**.
 - [x] En **Apps**, selecciona la app web `redactly`.
 - [x] Elige **Fraud Defense (reCAPTCHA Enterprise)**.
-- [x] Crea la key con dominios `localhost`, `agarnung.github.io`, `redactly-dbb56.web.app`, `redactly-dbb56.firebaseapp.com`.
+- [x] Crea la key con dominios `localhost`, `redactly-dbb56.web.app`, `redactly-dbb56.firebaseapp.com`.
 - [x] Copia la **site key** (`6L...`), no la secret key.
 - [x] Pégala en App Check, TTL `1 hour`, y pulsa **Save**.
 - [x] `firebase-config.js` con `appCheckProvider: "enterprise"`.
@@ -91,7 +91,7 @@
 
 ## 4. Hosting
 
-### Opción A — Firebase Hosting (recomendada)
+### Firebase Hosting
 
 - [x] `npx --yes firebase-tools` (sin instalación global)
 - [x] `npx firebase-tools login` como `agarnungm@gmail.com`
@@ -106,21 +106,6 @@
 - [x] Prueba `?autodemo=1&payload=both` → **200**.
 - [x] Prueba `?autodemo=quick&sample=sample-support.png&payload=text`.
 - [x] Prueba `?autodemo=1&sample=sample-bank.png&payload=image`.
-
-### Opción B — GitHub Pages (solo fallback manual)
-
-> **Decisión:** usar **Firebase Hosting**, no GitHub Pages. Pages queda solo como emergencia. El workflow ya no se lanza en cada push: ahora es `workflow_dispatch`.
-
-- [x] Workflow `pages.yml` cambiado a disparo manual.
-- [ ] No activar Pages salvo que Firebase Hosting falle.
-- [ ] Si se activa: GitHub → repo → **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-- [ ] Actions → **Deploy to GitHub Pages** → **Run workflow**.
-- [ ] Verificar `https://agarnung.github.io/redactly/` → **200**.
-- [ ] **Settings → Secrets and variables → Actions → New repository secret**: `FIREBASE_CONFIG_JS`, valor = contenido completo de `firebase-config.js`.
-- [ ] **Actions → Deploy to GitHub Pages → Run workflow**.
-- [ ] Abre `https://agarnung.github.io/redactly/` y comprueba que carga.
-- [ ] Añade `agarnung.github.io` a los dominios de reCAPTCHA y recarga.
-- [ ] Si App Check falla, revisa consola, site key y dominios autorizados.
 
 ## 5. Vídeo
 

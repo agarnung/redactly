@@ -1,7 +1,6 @@
 # Deploy the web demo
 
-The app is static: no build step. Firebase Hosting is optional; GitHub Pages or
-Netlify Drop also work.
+The app is static: no build step. Firebase Hosting is optional; any static host works.
 
 ## Firebase Hosting
 
@@ -38,23 +37,6 @@ run the Quick or Deep route and fill the receipt, risk card and privacy ledger.
 - On-device inference needs Chrome 139+ and the Prompt API flag.
 - The raw screenshot is never uploaded; only the selected sanitized payload leaves
   the device.
-
-## GitHub Pages (fallback)
-
-The repository includes `.github/workflows/pages.yml`. In GitHub:
-**Settings → Pages → Source: GitHub Actions**. The workflow publishes the
-repository root on every push to `main`.
-
-The Pages URL is `https://agarnung.github.io/redactly/`. Add
-`agarnung.github.io` to the reCAPTCHA allowed domains for App Check.
-
-For the real config on Pages, add a repository secret named
-`FIREBASE_CONFIG_JS` whose value is the full contents of your local
-`firebase-config.js`. The workflow writes it into the artifact at deploy time;
-the file is never committed. If the secret is empty, the app runs in mock mode.
-
-The app loads `firebase-config.js` with a 404 fallback, so it still runs in mock
-mode if the config is not published.
 
 ## reCAPTCHA Enterprise direct integration (fallback only)
 

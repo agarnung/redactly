@@ -170,7 +170,6 @@ Se añadieron tests Node para la lógica pura:
 Se añadió GitHub Actions:
 
 - `test.yml` ejecuta `npm test` en cada push y pull request.
-- `pages.yml` queda como despliegue manual de emergencia.
 
 El modo mock permite recorrer el flujo completo sin Firebase y sin red, y se usó
 como base para las primeras capturas y para revisar la UI.
@@ -244,18 +243,13 @@ Se comprobó la carga, el tema claro/oscuro y el flujo mock.
 
 ---
 
-## 9. Hosting: GitHub Pages y Firebase Hosting
+## 9. Hosting: Firebase Hosting
 
-### 9.1 GitHub Pages
+### 9.1 GitHub Pages: descartado
 
-Se añadió un workflow de GitHub Pages, pero los runs fallaban porque Pages no
+Se probó un workflow de GitHub Pages, pero los runs fallaban porque Pages no
 estaba habilitado: `GET /repos/.../pages` devolvía 404 y fallaba
-`actions/configure-pages@v5`.
-
-Para no romper cada push:
-
-- `pages.yml` se cambió a **`workflow_dispatch`**.
-- Pages quedó como **fallback manual**, no como demo principal.
+`actions/configure-pages@v5`. Se descartó esa vía y se eliminó el workflow.
 
 ### 9.2 Firebase Hosting
 
@@ -278,8 +272,7 @@ Se eligió **Firebase Hosting** como demo principal:
 - Después del deploy se restauró el debug token **solo en local**.
 - `.firebase/` se añadió al `.gitignore` porque el deploy lo crea.
 
-**Decisión final:** Firebase Hosting es la URL principal; GitHub Pages queda como
-emergencia manual.
+**Decisión final:** Firebase Hosting es la única demo alojada.
 
 ---
 
@@ -373,7 +366,7 @@ Se preparó toda la documentación de entrega:
 
 - `README.md` — descripción, demo, modo mock, modo real, troubleshooting y alcance.
 - `PRIVACY.md` — modelo de privacidad, garantías y limitaciones.
-- `DEPLOY.md` — Firebase Hosting y fallback de Pages.
+- `DEPLOY.md` — Firebase Hosting.
 - `SUBMISSION.md` — texto de Devpost, pitch, built with, disclosure de código
   preexistente y qué se construyó durante el periodo.
 - `VIDEO-SCRIPT.md` — guion de 8 planos.
@@ -461,8 +454,8 @@ Para la demo real:
   manual.
 - **Guard de imagen sin cajas:** es preferible bloquear una demo a enviar una
   imagen que puede contener secretos.
-- **Firebase Hosting como principal:** Pages no estaba habilitado y no aportaba
-  nada frente a Hosting; queda como emergencia.
+- **Firebase Hosting como única demo:** GitHub Pages no estaba habilitado y no
+  aportaba nada frente a Hosting; se descartó.
 
 ---
 
