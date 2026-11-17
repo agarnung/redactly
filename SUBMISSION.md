@@ -2,6 +2,8 @@
 
 **Project name:** Redactly — privacy-first hybrid inference
 
+**Devpost project:** <https://devpost.com/software/redactly-wk1dtn>
+
 **Elevator pitch:** Redact locally, ask globally. A screenshot assistant that redacts secrets on-device with Gemini Nano and sends only a sanitized payload to the cloud. The raw screenshot never leaves your device.
 
 **Inspiration:** Most screenshot AI tools upload the whole screen to the cloud. We wanted the opposite: use the local model for the sensitive first pass, then let the cloud answer only what is left. The privacy receipt makes that claim auditable.
@@ -16,7 +18,7 @@
 
 **What we learned:** Hybrid inference is not just a routing trick. The interesting part is deciding what must stay local, proving it, and making the cloud boundary explicit.
 
-**What's next:** Submit to #BuildHybridAI 2026. Later: Android and iOS clients for multi-platform consideration.
+**What's next:** Android and iOS clients for multi-platform consideration.
 
 **Built with:** Firebase AI Logic, Gemini Nano 4, App Check, JavaScript, HTML, CSS, Node.js, GitHub Actions.
 

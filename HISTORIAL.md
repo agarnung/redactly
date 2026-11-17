@@ -405,12 +405,13 @@ tono `-2 Hz`.
 - [x] Gemini Nano real y App Check real probados de extremo a extremo.
 - [x] Correcciones de cajas y guard de imagen sin cajas.
 - [x] Documentación, guía de grabación y voz sintetizada.
+- [x] Proyecto enviado a Devpost: <https://devpost.com/software/redactly-wk1dtn>.
 
-### Pendiente antes del envío
+### Envío
 
 - [x] Grabar el vídeo ≤3 min en inglés, 1920×1080, 30 fps, sin secretos ni PII.
 - [x] Subir a YouTube como público y añadir subtítulos: <https://youtu.be/RZJKePZXAxw>.
-- [ ] Enviar Devpost antes del **30-nov-2026 14:00 PT** y guardar confirmación.
+- [x] Enviar Devpost antes del **30-nov-2026 14:00 PT**: <https://devpost.com/software/redactly-wk1dtn>.
 - [ ] Opcional: quota form (sprints 2/3) y clientes Android/iOS para
   consideración multiplataforma.
 

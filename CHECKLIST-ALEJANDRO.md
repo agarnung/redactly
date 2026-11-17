@@ -1,7 +1,7 @@
 # Checklist Redactly — #BuildHybridAI 2026
 
 > **Última sesión:** repo publicado, historial de autoría corregido y **Firebase Hosting desplegado** en `https://redactly-dbb56.web.app` (200).
-> **Estado:** Gemini Nano real y App Check verificados (debug local + reCAPTCHA alojado). Vídeo subido: <https://youtu.be/RZJKePZXAxw>. Pendiente: Devpost. Firebase CLI se usa con `npx --yes firebase-tools` (sin instalación global).
+> **Estado:** Gemini Nano real y App Check verificados (debug local + reCAPTCHA alojado). Vídeo subido: <https://youtu.be/RZJKePZXAxw>. **Enviado a Devpost:** <https://devpost.com/software/redactly-wk1dtn>. Firebase CLI se usa con `npx --yes firebase-tools` (sin instalación global).
 > **Historial completo:** [`redactly/HISTORIAL.md`](redactly/HISTORIAL.md).
 > **Vídeo:** [`VIDEO-RECORDING-GUIDE.md`](VIDEO-RECORDING-GUIDE.md) y voz en `video/audio/full-voiceover-timed.mp3`.
 > **Cierre:** **30-nov-2026, 14:00 PT = 23:00 CET**.
@@ -122,15 +122,15 @@
 
 ## 6. Devpost
 
-- [ ] Abre el challenge → **Submit project**.
-- [ ] Rellena nombre **Redactly**, elevator pitch, thumbnail (`video/slides/thumbnail.png`), vídeo, repo y hosted URL.
-- [ ] **Built with:** Firebase AI Logic, Gemini Nano 4, App Check, JavaScript, HTML, CSS, Node.js.
-- [ ] Descripción: pega el texto inglés de `redactly/SUBMISSION.md`.
-- [ ] Añade **Pre-existing code disclosure** (repo nuevo, sin código preexistente) y **What was built during the submission period**.
-- [ ] Selecciona plataforma **Web/Chrome**, país España, individual.
-- [ ] Testing instructions: repo, hosted URL, `npm test`, `python3 -m http.server 8080`, Chrome 139+, flag de Gemini Nano y debug token solo local.
-- [ ] Guarda borrador → previsualiza → revisa enlaces en incógnito.
-- [ ] Envía antes del **30-nov 2:00 PM PT** y guarda confirmación.
+- [x] Abre el challenge → **Submit project**.
+- [x] Rellena nombre **Redactly**, elevator pitch, thumbnail (`video/slides/thumbnail.png`), vídeo, repo y hosted URL.
+- [x] **Built with:** Firebase AI Logic, Gemini Nano 4, App Check, JavaScript, HTML, CSS, Node.js.
+- [x] Descripción: pega el texto inglés de `redactly/SUBMISSION.md`.
+- [x] Añade **Pre-existing code disclosure** (repo nuevo, sin código preexistente) y **What was built during the submission period**.
+- [x] Selecciona plataforma **Web/Chrome**, país España, individual.
+- [x] Testing instructions: repo, hosted URL, `npm test`, `python3 -m http.server 8080`, Chrome 139+, flag de Gemini Nano y debug token solo local.
+- [x] Guarda borrador → previsualiza → revisa enlaces en incógnito.
+- [x] Envía antes del **30-nov 2:00 PM PT** y guarda confirmación: <https://devpost.com/software/redactly-wk1dtn>.
 
 ## 7. Opcional
 
@@ -144,4 +144,4 @@
 - [ ] `git status` limpio; sin C++; `LICENSE` visible en About.
 - [ ] `git grep -n "sk_live_\\|AIza\\|-----BEGIN"` sin claves reales.
 - [ ] Hosted URL y vídeo funcionan en incógnito.
-- [ ] Devpost enviado y plataforma **Web/Chrome** marcada.
+- [x] Devpost enviado y plataforma **Web/Chrome** marcada: <https://devpost.com/software/redactly-wk1dtn>.
