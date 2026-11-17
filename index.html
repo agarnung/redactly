@@ -34,9 +34,9 @@
 
     <section class="card">
       <ol class="stepper" id="stepper">
-        <li data-step="1" class="active" aria-current="step"><span>1</span> Capture</li>
-        <li data-step="2"><span>2</span> Redact</li>
-        <li data-step="3"><span>3</span> Ask</li>
+        <li data-step="1" class="active" aria-current="step" tabindex="0" data-tip="Step 1 — Capture: drop a PNG/JPEG or load a sample screenshot."><span>1</span> Capture</li>
+        <li data-step="2" tabindex="0" data-tip="Step 2 — Redact: review the on-device findings and add or remove boxes."><span>2</span> Redact</li>
+        <li data-step="3" tabindex="0" data-tip="Step 3 — Ask: choose the payload and route, then run a question."><span>3</span> Ask</li>
       </ol>
 
       <div class="grid">
@@ -86,13 +86,13 @@
           <div class="row buttons">
             <button id="redactBtn" class="primary" data-tip="Redact the screenshot on-device">Redact on-device</button>
           </div>
-          <div class="label ask-label">Ask</div>
+          <div class="label ask-label" data-tip="Ask the screenshot: choose what is sent to the cloud and where the model runs.">Ask</div>
           <div class="row">
-            <span class="label">Cloud payload</span>
+            <span class="label" data-tip="What the cloud receives. The raw screenshot never leaves the device.">Cloud payload</span>
             <div class="segmented" id="payloadGroup" role="radiogroup" aria-label="Cloud payload">
-              <button type="button" class="seg-btn selected" data-value="text" role="radio" aria-checked="true" data-tip="Send sanitized text only">Text</button>
-              <button type="button" class="seg-btn" data-value="image" role="radio" aria-checked="false" data-tip="Send the redacted PNG only">Redacted image</button>
-              <button type="button" class="seg-btn" data-value="both" role="radio" aria-checked="false" data-tip="Send redacted PNG + sanitized text">Both</button>
+              <button type="button" class="seg-btn selected" data-value="text" role="radio" aria-checked="true" data-tip="Sends only the sanitized text to the cloud: smallest payload, most private.">Text</button>
+              <button type="button" class="seg-btn" data-value="image" role="radio" aria-checked="false" data-tip="Sends the redacted PNG to the cloud; the raw screenshot stays on-device.">Redacted image</button>
+              <button type="button" class="seg-btn" data-value="both" role="radio" aria-checked="false" data-tip="Sends the redacted PNG plus the sanitized text: more context, larger payload.">Both</button>
             </div>
             <select id="payload" class="sr-only" tabindex="-1" aria-hidden="true">
               <option value="text" selected>Sanitized text only (default)</option>
@@ -101,11 +101,11 @@
             </select>
           </div>
           <div class="row">
-            <span class="label">Route</span>
+            <span class="label" data-tip="Where the model runs: on-device, cloud, or chosen automatically.">Route</span>
             <div class="segmented" id="routeModeGroup" role="radiogroup" aria-label="Inference route">
-              <button type="button" class="seg-btn selected" data-value="auto" role="radio" aria-checked="true" data-tip="Route automatically">Auto</button>
-              <button type="button" class="seg-btn" data-value="on-device" role="radio" aria-checked="false" data-tip="Force on-device">On-device</button>
-              <button type="button" class="seg-btn" data-value="cloud" role="radio" aria-checked="false" data-tip="Force cloud">Cloud</button>
+              <button type="button" class="seg-btn selected" data-value="auto" role="radio" aria-checked="true" data-tip="Chooses automatically: on-device for short questions, cloud for complex ones.">Auto</button>
+              <button type="button" class="seg-btn" data-value="on-device" role="radio" aria-checked="false" data-tip="Forces Gemini Nano to answer locally; nothing leaves the device.">On-device</button>
+              <button type="button" class="seg-btn" data-value="cloud" role="radio" aria-checked="false" data-tip="Forces a cloud model; only the selected sanitized payload is uploaded.">Cloud</button>
             </div>
             <select id="routeMode" class="sr-only" tabindex="-1" aria-hidden="true">
               <option value="auto" selected>Auto (hybrid)</option>

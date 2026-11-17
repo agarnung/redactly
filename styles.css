@@ -141,8 +141,8 @@ button:not(.primary):not(.ghost):not(.seg-btn):not(.icon-btn):hover:not(:disable
 .dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;flex-wrap:wrap}
 .ripple{position:absolute;border-radius:50%;background:currentColor;opacity:.28;transform:scale(0);animation:ripple .6s ease-out;pointer-events:none}
 @keyframes ripple{to{transform:scale(2.6);opacity:0}}
-[data-tip]{position:relative}
-[data-tip]:hover::after,[data-tip]:focus-visible::after{content:attr(data-tip);position:absolute;left:0;top:calc(100% + 8px);z-index:30;background:var(--md-surface-2);border:1px solid var(--md-outline);color:var(--text);padding:8px 10px;border-radius:10px;font-size:12px;width:max-content;max-width:260px;box-shadow:var(--elev-2);white-space:normal}
+.tooltip{position:fixed;left:0;top:0;z-index:80;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity var(--motion),transform var(--motion);background:var(--md-surface-2);border:1px solid var(--md-outline);color:var(--text);padding:8px 10px;border-radius:10px;font-size:12px;line-height:1.4;max-width:280px;box-shadow:var(--elev-3);white-space:normal}
+.tooltip.show{opacity:1;transform:translateY(0)}
 .card{box-shadow:var(--elev-1);transition:box-shadow var(--motion),border-color var(--motion)}
 .card:hover{box-shadow:var(--elev-2);border-color:#2a3b55}
 .badge{transition:border-color var(--motion),background var(--motion)}
@@ -211,7 +211,7 @@ input[type=file]:focus,textarea:focus,select:focus{border-color:var(--md-seconda
 :root[data-theme="light"] .ledger li,
 :root[data-theme="light"] .output,
 :root[data-theme="light"] .receipt-row code{color:#1e293b}
-:root[data-theme="light"] .risk-grid div:hover{background:#e8eef6}
+:root[data-theme="light"] .risk-grid div:hover{background:rgba(22,163,74,.12)}
 :root[data-theme="light"] .stepper li{background:#f7f9fc}
 :root[data-theme="light"] .stepper li span{background:#e2e8f0;color:var(--muted)}
 :root[data-theme="light"] .stepper li.active{background:rgba(22,163,74,.1);border-color:rgba(22,163,74,.45);color:var(--text)}
@@ -236,12 +236,12 @@ input[type=file]:focus,textarea:focus,select:focus{border-color:var(--md-seconda
 :root[data-theme="light"] .compare-inner{background:#e3eaf2;border-color:var(--line)}
 :root[data-theme="light"] .foot{color:#64748b}
 :root[data-theme="light"] .theme-toggle{background:#f2f5f9;border-color:var(--line);color:var(--text)}
-':root[data-theme="light"] .theme-toggle:hover{background:var(--md-surface-2)}
-:root[data-theme="light"] .risk-card{background:#dfe7f0;border-color:#c3cedd;color:#263449}
+:root[data-theme="light"] .theme-toggle:hover{background:var(--md-surface-2)}
+:root[data-theme="light"] .risk-card{background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.25);color:#166534}
 :root[data-theme="light"] .risk-head,
-:root[data-theme="light"] .risk-note{color:#5d6b80}
-:root[data-theme="light"] .risk-grid div{background:#f2f5f9;border-color:#cbd5e2}
-:root[data-theme="light"] .risk-grid strong{color:#263449}
+:root[data-theme="light"] .risk-note{color:#166534}
+:root[data-theme="light"] .risk-grid div{background:#f7f9fc;border-color:rgba(22,163,74,.22)}
+:root[data-theme="light"] .risk-grid strong{color:#166534}
 :root[data-theme="light"] .risk-grid span{color:#5d6b80}
 
 /* Footer links */

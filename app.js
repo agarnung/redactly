@@ -1283,6 +1283,64 @@ copyReceiptBtn.addEventListener("click", async () => {
     showSnackbar("Could not copy the receipt.", "err");
   }
 });
+const tooltip = document.createElement("div");
+tooltip.className = "tooltip";
+tooltip.id = "tooltip";
+tooltip.setAttribute("role", "tooltip");
+document.body.appendChild(tooltip);
+let tooltipTarget = null;
+
+function positionTooltip(target) {
+  const rect = target.getBoundingClientRect();
+  const tipRect = tooltip.getBoundingClientRect();
+  const gap = 10;
+  let top = rect.top - tipRect.height - gap;
+  if (top < 8) top = rect.bottom + gap;
+  let left = rect.left + rect.width / 2 - tipRect.width / 2;
+  left = Math.max(8, Math.min(left, window.innerWidth - tipRect.width - 8));
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+}
+
+function showTooltip(target) {
+  const text = target.getAttribute("data-tip");
+  if (!text) return;
+  tooltipTarget = target;
+  tooltip.textContent = text;
+  tooltip.classList.add("show");
+  positionTooltip(target);
+}
+
+function hideTooltip() {
+  tooltipTarget = null;
+  tooltip.classList.remove("show");
+}
+
+document.addEventListener("pointerover", (event) => {
+  const target = event.target.closest("[data-tip]");
+  if (!target || target === tooltipTarget) return;
+  showTooltip(target);
+});
+document.addEventListener("pointerout", (event) => {
+  const target = event.target.closest("[data-tip]");
+  if (!target || target !== tooltipTarget) return;
+  if (event.relatedTarget instanceof Node && target.contains(event.relatedTarget)) return;
+  hideTooltip();
+});
+document.addEventListener("focusin", (event) => {
+  const target = event.target.closest("[data-tip]");
+  if (target) showTooltip(target);
+});
+document.addEventListener("focusout", (event) => {
+  const target = event.target.closest("[data-tip]");
+  if (target && target === tooltipTarget) hideTooltip();
+});
+window.addEventListener("scroll", hideTooltip, true);
+window.addEventListener("resize", hideTooltip);
+document.addEventListener("pointerdown", (event) => {
+  if (tooltipTarget && !tooltipTarget.contains(event.target)) hideTooltip();
+});
+
 document.addEventListener("pointerdown", (event) => {
   const button = event.target.closest("button");
   if (!button || button.disabled) return;
