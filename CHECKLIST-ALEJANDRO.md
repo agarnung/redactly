@@ -1,7 +1,8 @@
 # Checklist Redactly — #BuildHybridAI 2026
 
-> **Última sesión:** acceso a Firebase Console (`redactly-dbb56`) y app probándose en `http://localhost:8093/`.
-> **Estado:** repo publicado en GitHub (`agarnung/redactly`, GPL-3.0). Pendiente: deploy, Gemini Nano real, vídeo y Devpost. Firebase CLI no está instalado en este equipo.
+> **Última sesión:** repo publicado, historial de autoría corregido y **Firebase Hosting desplegado** en `https://redactly-dbb56.web.app` (200).
+> **Estado:** demo principal online. Pendiente: Gemini Nano real, vídeo y Devpost. Firebase CLI se usa con `npx --yes firebase-tools` (sin instalación global).
+> **Historial completo:** [`HISTORIAL.md`](HISTORIAL.md).
 > **Cierre:** **30-nov-2026, 14:00 PT = 23:00 CET**.
 > **Regla:** no enviar hasta que repo, demo y vídeo respondan **200** en incógnito.
 
