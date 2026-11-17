@@ -2,9 +2,10 @@
 
 > Recommended: English narration or English subtitles. Record 1920×1080, 30 fps.
 > Never show `.env`, API keys, project ID, debug tokens, emails or personal data.
-> **Record the app in Chrome**: Firebase AI Logic
-> on-device inference is only supported on Web/Android/iOS. Use mock mode for the
-> cloud leg unless you have tested real Firebase credentials before recording.
+> **Record the app in Chrome**: Firebase AI Logic. Use the hosted URL
+> `https://redactly-dbb56.web.app/?sample=sample.png&theme=dark` so the cloud leg
+> uses real App Check (reCAPTCHA Enterprise) and the on-device leg uses Gemini Nano.
+> The flow has been tested end-to-end on Chrome 157; see `HISTORIAL.md`.
 
 ## Shot 01 — 0:00–0:15 — The problem
 
@@ -26,7 +27,7 @@
 
 ## Shot 03 — 0:35–1:05 — On-device redaction
 
-**On screen:** click **Redact on-device**; boxes appear.
+**On screen:** click **Redact on-device**; wait 20–30 s; 14 boxes appear on the API 401 sample.
 **Do:** point at the black boxes and the masked findings list. Show the
 **on-device** badge and “raw screenshot never left the device”.
 **Say:**
@@ -47,18 +48,19 @@
 ## Shot 05 — 1:25–1:45 — Quick on-device vs Deep cloud
 
 **On screen:** click **⚡ Quick answer**; badge `⚡ on-device · 420 ms`.
-Then click **☁ Deep answer**; badge `☁ cloud · 1.2 s`.
+Then click **☁ Deep answer**; badge `☁ cloud · 1.5–4 s`.
 **Say:**
 
-> A short question stays on-device: 420 milliseconds, no raw image sent. A complex
-> question goes to the cloud with the sanitized payload, streamed back in 1.2 seconds.
-> That is real hybrid inference, with a privacy guard.
+> A short question stays on-device in about two seconds, with no raw image sent. A
+> complex question goes to the cloud with only the sanitized payload, streamed back in
+> a few seconds. That is real hybrid inference, with a privacy guard.
 
 ## Shot 06 — 1:45–2:05 — Payload choice and receipt
 
 **On screen:** switch **Cloud payload** between text, redacted image and both.
 **Do:** show the risk card: **12 redactions, 0 secrets sent, 0 B raw image
-uploaded**, payload size. Open the **Privacy receipt** JSON.
+uploaded**, payload size. Open the **Privacy receipt** JSON and show
+`rawImageUploaded:false`, `secretsSent:0`, `appCheck:true`.
 **Say:**
 
 > The cloud only gets what I explicitly choose: text, redacted image, or both. The

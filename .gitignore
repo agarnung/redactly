@@ -15,3 +15,5 @@ video/*.webm
 *.avi
 
 .firebase/
+
+video/audio/*-padded.wav

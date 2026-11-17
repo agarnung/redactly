@@ -23,16 +23,16 @@ and the redacted image, the receipt and the risk card update immediately.
 
 5
 00:01:25,000 --> 00:01:45,000
-A short question stays on-device: 420 milliseconds, no raw image sent.
-A complex question goes to the cloud with the sanitized payload,
-streamed back in 1.2 seconds. That is real hybrid inference,
+A short question stays on-device in about two seconds, with no raw image sent.
+A complex question goes to the cloud with only the sanitized payload,
+streamed back in a few seconds. That is real hybrid inference,
 with a privacy guard.
 
 6
 00:01:45,000 --> 00:02:05,000
 The cloud only gets what I explicitly choose: text, redacted image, or both.
-The risk card shows zero secrets sent. The receipt hashes the sanitized text
-and the redacted image, so the claim is auditable.
+The risk card shows zero secrets sent and the receipt hashes the sanitized text
+and the redacted image. App Check signs every cloud call, so the claim is auditable.
 
 7
 00:02:05,000 --> 00:02:25,000

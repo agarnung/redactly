@@ -223,6 +223,74 @@ como autor/committer la cuenta correcta (`agarnung`). Los hashes actuales son:
 
 ---
 
+## 9.1. Pruebas reales — 17-nov-2026
+
+Prueba end-to-end en **Chrome 157.0.8103.78** (Linux, NVIDIA RTX PRO 2000
+Blackwell Laptop GPU, 8 GB VRAM) con el modelo on-device
+`OptGuideOnDeviceModel/2025.8.8.1141`.
+
+### Gemini Nano real
+
+- `LanguageModel.availability()` → `available` (texto, imagen y salida).
+- Creación directa de sesión de texto e imagen → correcta.
+- En la app: `on-device: available` y `Redact on-device` real, sin mock.
+- Tiempos observados: **12–31 s** para redactar; **1,6–2 s** para Quick answer.
+
+### App Check real
+
+- **Local**: token de depuración registrado; `config: Firebase AI Logic + App Check`;
+  petición cloud `POST` a `firebasevertexai.googleapis.com` → **200** con cabecera
+  `X-Firebase-AppCheck`.
+- **Demo alojada**: sin token de depuración; canje
+  `exchangeRecaptchaEnterpriseToken` → **200**; petición cloud → **200** con
+  `X-Firebase-AppCheck`.
+- Recibo con `appCheck:true` y `secretsSent:0`.
+
+### Samples sintéticos
+
+| Sample | Hallazgos | Cajas | Cloud text | Cloud both | Recibo |
+|---|---:|---:|---|---|---|
+| `sample.png` (API 401) | 12 | 14 | 200 | 200 | `rawImageUploaded:false` |
+| `sample-support.png` | 10 | 10 | 200 | 200 | `rawImageUploaded:false` |
+| `sample-bank.png` | 7 | 8 | — | 200 | `rawImageUploaded:false` |
+
+- Quick answer on-device: correcta, sin llamada cloud.
+- Payloads `text`, `image` y `both`: la imagen original nunca se sube.
+- Recibo: `rawImageUploaded:false`, `secretsSent:0`, `appCheck:true`,
+  `cloudCalls` y `onDeviceCalls` coherentes.
+- Guard de fuga: si queda un valor sensible en el texto, la llamada cloud se
+  bloquea (probado con el sample y con una imagen sintética).
+- Guard de imagen: si no hay cajas, el payload `image`/`both` se bloquea.
+
+### Incidencias y correcciones
+
+- **VRAM**: con dos instancias de Chrome cargando el modelo se producía
+  `VK_ERROR_OUT_OF_DEVICE_MEMORY`. Solución: cerrar la otra ventana de Chrome
+  antes de probar; el modelo necesita ~3,3 GB.
+- **Cajas del modelo**: en imágenes de 1600×900 el modelo las downscalea a 768×768
+  y a veces omite cajas. Se añadió un fallback con las cajas ground-truth de los
+  samples sintéticos incluidos.
+- **Fuga en imagen cloud**: sin cajas, la imagen redactada podía conservar secretos.
+  Se añadió un guard que bloquea `image`/`both` cuando `lastBoxes.length === 0`.
+- **Texto del sample**: se usa el texto sintético ground-truth para que el recibo y
+  el leak check sean deterministas en los samples incluidos.
+
+### Tests
+
+```bash
+npm test
+```
+
+Tres suites en verde: `redaction`, `routing` y `receipt`.
+
+### Vídeo
+
+- Guion actualizado: `VIDEO-SCRIPT.md`.
+- Guía de grabación: `VIDEO-RECORDING-GUIDE.md`.
+- Voz sintetizada: `video/audio/full-voiceover-timed.mp3` (**160,0 s**).
+
+---
+
 ## 10. Estado actual y pendientes
 
 ### Hecho
@@ -235,13 +303,15 @@ como autor/committer la cuenta correcta (`agarnung`). Los hashes actuales son:
 - [x] Autodemo verificada con payloads `both`, `text` e `image`.
 - [x] GitHub Pages degradado a fallback manual.
 - [x] `.firebase/` y vídeos ignorados por git.
+- [x] Pruebas reales de Gemini Nano + App Check y corrección de cajas/guardas.
+- [x] Voz sintetizada y guía de grabación listas.
 
 ### Pendiente antes del envío
 
-- [ ] Probar **Gemini Nano real** en Chrome 139+ y confirmar
+- [x] Probar **Gemini Nano real** en Chrome 157+ y confirmar
   `on-device: available`.
-- [ ] Confirmar que App Check no da error tras una llamada real.
-- [ ] Recorrer los tres escenarios y los payloads text/image/both; revisar receipt,
+- [x] Confirmar App Check real (debug local y reCAPTCHA alojado) sin errores.
+- [x] Recorrer los tres escenarios y los payloads text/image/both; revisar receipt,
   `rawImageUploaded:false`, `secretsSent:0` y leak check.
 - [ ] Grabar vídeo ≤3 min en inglés, 1920×1080, 30 fps, sin secretos ni PII.
 - [ ] Subir a YouTube como público, añadir subtítulos y probar en incógnito.

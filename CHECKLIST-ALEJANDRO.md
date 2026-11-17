@@ -1,8 +1,9 @@
 # Checklist Redactly — #BuildHybridAI 2026
 
 > **Última sesión:** repo publicado, historial de autoría corregido y **Firebase Hosting desplegado** en `https://redactly-dbb56.web.app` (200).
-> **Estado:** demo principal online. Pendiente: Gemini Nano real, vídeo y Devpost. Firebase CLI se usa con `npx --yes firebase-tools` (sin instalación global).
+> **Estado:** Gemini Nano real y App Check verificados (debug local + reCAPTCHA alojado). Pendiente: grabar vídeo y enviar Devpost. Firebase CLI se usa con `npx --yes firebase-tools` (sin instalación global).
 > **Historial completo:** [`HISTORIAL.md`](HISTORIAL.md).
+> **Vídeo:** [`VIDEO-RECORDING-GUIDE.md`](VIDEO-RECORDING-GUIDE.md) y voz en `video/audio/full-voiceover-timed.mp3`.
 > **Cierre:** **30-nov-2026, 14:00 PT = 23:00 CET**.
 > **Regla:** no enviar hasta que repo, demo y vídeo respondan **200** en incógnito.
 
@@ -51,7 +52,7 @@
 - [x] Pégala en App Check, TTL `1 hour`, y pulsa **Save**.
 - [x] `firebase-config.js` con `appCheckProvider: "enterprise"`.
 - [x] Debug token fijo registrado y puesto en `appCheckDebugToken`.
-- [ ] Confirma que App Check no da error tras una llamada real.
+- [x] Confirma que App Check no da error tras una llamada real (debug local y reCAPTCHA alojado).
 - [x] **Nota:** para Firebase AI Logic no se añade `enterprise.js`; App Check usa `ReCaptchaEnterpriseProvider` y refresca solo.
 
 ### 1.4 Config local
@@ -61,32 +62,32 @@
 - [x] `git check-ignore -v firebase-config.js` → ignorado.
 - [x] `python3 -m http.server 8093` → abre `http://localhost:8093` (8080 puede estar ocupado).
 - [x] Abre `http://localhost:8093/` y comprueba que la app carga.
-- [ ] Debe aparecer `config: Firebase AI Logic + App Check`.
-- [ ] Si usas debug token, cópialo de DevTools → Console y regístralo en App Check → Manage debug tokens.
-- [ ] Recarga y comprueba que las llamadas llevan `X-Firebase-AppCheck` y no hay errores.
+- [x] Debe aparecer `config: Firebase AI Logic + App Check`.
+- [x] Debug token registrado en App Check → Manage debug tokens.
+- [x] Recarga y comprueba que las llamadas llevan `X-Firebase-AppCheck` y no hay errores.
 - [x] Comprueba el toggle claro/oscuro en la cabecera.
 
 ## 2. Gemini Nano real
 
-- [ ] Chrome 139+ en escritorio.
-- [ ] `chrome://flags/#prompt-api-for-gemini-nano-multimodal-input` → **Enabled** → reinicia Chrome.
-- [ ] DevTools → Console: `await LanguageModel.availability()`.
-- [ ] Si devuelve `downloadable`: `await LanguageModel.create()` y espera la descarga.
-- [ ] En la app: **Check on-device** → debe decir `on-device: available`.
-- [ ] Si falla: `chrome://components` → actualiza **Optimization Guide On Device Model**; revisa espacio libre, GPU/VRAM y RAM; reinicia Chrome.
+- [x] Chrome 157+ en escritorio.
+- [x] `chrome://flags/#prompt-api-for-gemini-nano-multimodal-input` → **Enabled**.
+- [x] DevTools → Console: `await LanguageModel.availability()` → `available`.
+- [x] `await LanguageModel.create()` probado para texto e imagen.
+- [x] En la app: **Check on-device** → `on-device: available`.
+- [x] Modelo `2025.8.8.1141` instalado; si hay OOM, cerrar otra ventana de Chrome.
 
 ## 3. Probar el flujo real
 
-- [ ] **API 401 (.env)**: **Load sample** → **Redact on-device** → revisa cajas, etiquetas y texto sanitizado.
-- [ ] **Support ticket**: revisa email, teléfono, pedido, tracking y tarjeta.
-- [ ] **Bank statement**: revisa IBAN, importe y nombre.
-- [ ] **Payload text** + **Deep answer**: en Network solo debe salir texto sanitizado.
-- [ ] **Payload image** + **Deep answer**: solo debe salir la imagen redactada.
-- [ ] **Payload both**: revisa receipt, `rawImageUploaded:false`, `secretsSent:0` y descarga el JSON.
-- [ ] **Quick answer**: debe quedarse on-device, badge `⚡ on-device`, sin llamada cloud.
-- [ ] **Editor de cajas**: arrastra para añadir, clic para quitar; receipt y risk card deben actualizarse.
-- [ ] **Leak check**: si queda un valor original, la llamada cloud debe bloquearse.
-- [ ] En Network no debe aparecer la imagen original subida.
+- [x] **API 401 (.env)**: 14 cajas y 12 hallazgos; texto sanitizado correcto.
+- [x] **Support ticket**: 10 cajas y 10 hallazgos.
+- [x] **Bank statement**: 8 cajas y 7 hallazgos.
+- [x] **Payload text** + **Deep answer**: solo texto sanitizado, 200.
+- [x] **Payload image** + **Deep answer**: solo imagen redactada, 200.
+- [x] **Payload both**: receipt con `rawImageUploaded:false`, `secretsSent:0`, `appCheck:true`.
+- [x] **Quick answer**: on-device, sin llamada cloud.
+- [ ] **Editor de cajas**: pendiente de grabar el gesto manual.
+- [x] **Leak check**: bloquea la llamada cloud si queda un valor sensible.
+- [x] En Network no aparece la imagen original subida.
 
 ## 4. Hosting
 
@@ -100,7 +101,7 @@
 - [x] `appCheckDebugToken: false` durante el deploy (restaurado después para local).
 - [x] `npx firebase-tools deploy --only hosting`
 - [x] Abre `https://redactly-dbb56.web.app` → **200**.
-- [ ] Añade `redactly-dbb56.web.app` y `redactly-dbb56.firebaseapp.com` a reCAPTCHA.
+- [x] Dominios `redactly-dbb56.web.app` y `.firebaseapp.com` en reCAPTCHA.
 - [x] Verifica que el deploy incluye `firebase-config.js` pero git sigue sin verlo.
 - [x] Prueba `?autodemo=1&payload=both` → **200**.
 - [x] Prueba `?autodemo=quick&sample=sample-support.png&payload=text`.
