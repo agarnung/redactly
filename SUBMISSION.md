@@ -8,7 +8,7 @@
 
 **What it does:** Load a screenshot, let Gemini Nano find and redact emails, API keys, tokens, IBANs, card numbers and other secrets, then choose a sanitized payload: text only, redacted image only, or both. Quick questions stay on-device; complex questions use the cloud. A leak check blocks any original value before a cloud call. The app shows a risk card, a local privacy ledger and a downloadable SHA-256 receipt.
 
-**How we built it:** Vanilla JavaScript and Firebase AI Logic hybrid inference. On-device calls use `ONLY_ON_DEVICE` with a structured-output constraint; cloud calls use `ONLY_IN_CLOUD` and streaming. The app uses App Check and lazy SDK imports so the mock mode works offline. The UI is a zero-build Material Design 3-inspired interface with a 3-step stepper, visual boxes, a manual box editor and a before/after slider.
+**How we built it:** Vanilla JavaScript and Firebase AI Logic hybrid inference. On-device calls use `ONLY_ON_DEVICE` with a structured-output constraint; cloud calls use `ONLY_IN_CLOUD` and streaming. The app uses App Check and lazy SDK imports so the mock mode works offline. The UI is a zero-build Material Design 3-inspired interface with a 3-step stepper, visual boxes, a manual box editor, a redacted/original toggle and a lightbox.
 
 **Challenges we ran into:** Firebase AI Logic on-device inference is only supported on Web/Android/iOS, so the demo targets Web (Chrome). Keeping the raw image off the network required a strict separation between the on-device redaction model and the cloud answer model, plus a leak check and a deterministic mock for offline testing.
 

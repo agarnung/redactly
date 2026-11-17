@@ -153,22 +153,21 @@
 
       <div class="privacy-grid">
         <div>
-          <div class="label">Redacted image (safe to share)</div>
+          <div class="redacted-head">
+            <div class="label">Redacted image (safe to share)</div>
+            <label class="switch" data-tip="Toggle between the redacted image and the original">
+              <input id="showOriginalToggle" type="checkbox" aria-label="Show the original screenshot instead of the redacted image" disabled>
+              <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+              <span class="switch-label" id="showOriginalLabel">Redacted</span>
+            </label>
+          </div>
           <div class="redacted-wrap">
             <div class="preview redacted-preview" id="redactedPreview">Redact the screenshot first.</div>
-            <button id="redactedExpandBtn" class="image-expand" type="button" aria-label="Open redacted screenshot in lightbox" data-tip="Open redacted screenshot in lightbox" hidden>
+            <button id="redactedExpandBtn" class="image-expand" type="button" aria-label="Open image in lightbox" data-tip="Open image in lightbox" hidden>
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
             </button>
           </div>
           <span class="tip-wrap" data-tip="Download the redacted PNG"><button id="downloadBtn" class="ghost small" disabled>Download redacted PNG</button></span>
-          <div class="compare" id="compareWrap" hidden>
-            <div class="compare-inner" id="compareInner">
-              <img id="compareRaw" alt="Original screenshot">
-              <img id="compareRedacted" class="compare-redacted" alt="Redacted screenshot">
-            </div>
-            <input id="compareRange" class="compare-range" type="range" min="0" max="100" value="50" aria-label="Compare original and redacted">
-            <div class="compare-labels"><span>Redacted</span><span>Original</span></div>
-          </div>
         </div>
         <div>
           <div class="label">Privacy receipt</div>

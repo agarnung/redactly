@@ -56,11 +56,8 @@ const resetBoxesBtn = $("resetBoxesBtn");
 const receiptHashEl = $("receiptHash");
 const receiptBtn = $("receiptBtn");
 const sampleSelect = $("sampleSelect");
-const compareWrap = $("compareWrap");
-const compareInner = $("compareInner");
-const compareRaw = $("compareRaw");
-const compareRedacted = $("compareRedacted");
-const compareRange = $("compareRange");
+const showOriginalToggle = $("showOriginalToggle");
+const showOriginalLabel = $("showOriginalLabel");
 const riskRedactions = $("riskRedactions");
 const riskSent = $("riskSent");
 const riskRaw = $("riskRaw");
@@ -185,6 +182,7 @@ let lastSanitized = "";
 let lastFindings = [];
 let lastBoxes = [];
 let redactedDataUrl = "";
+let redactedPreviewImg = null;
 let lastReceipt = null;
 let lastRoute = "";
 let lastLatencyMs = 0;
@@ -640,14 +638,23 @@ function drawRedactedImage(img, boxes) {
   out.alt = "Redacted screenshot";
   out.src = redactedDataUrl;
   redactedPreview.appendChild(out);
+  redactedPreviewImg = out;
   if (redactedExpandBtn) redactedExpandBtn.hidden = false;
-  compareRaw.src = originalDataUrl || img.src;
-  compareRedacted.src = redactedDataUrl;
-  compareWrap.hidden = false;
-  compareInner.style.setProperty("--pos", `${compareRange.value}%`);
+  if (showOriginalToggle) showOriginalToggle.disabled = false;
+  applyRedactedView();
   downloadBtn.disabled = false;
   updatePrivacyBadge();
   updateRiskCard();
+}
+
+function applyRedactedView() {
+  const showOriginal = Boolean(showOriginalToggle?.checked);
+  if (showOriginalLabel) showOriginalLabel.textContent = showOriginal ? "Original" : "Redacted";
+  if (redactedPreviewImg) {
+    redactedPreviewImg.src = showOriginal
+      ? originalDataUrl || redactedDataUrl
+      : redactedDataUrl;
+  }
 }
 
 function pointFromEvent(event) {
@@ -721,16 +728,19 @@ function resetRedactionState() {
   sanitizedEl.textContent = "Redact the screenshot first.";
   findingsEl.innerHTML = "<li>No redactions yet.</li>";
   redactedPreview.textContent = "Redact the screenshot first.";
+  redactedPreviewImg = null;
   if (redactedExpandBtn) redactedExpandBtn.hidden = true;
+  if (showOriginalToggle) {
+    showOriginalToggle.checked = false;
+    showOriginalToggle.disabled = true;
+  }
+  applyRedactedView();
   downloadBtn.disabled = true;
   receiptHashEl.textContent = "sha256:—";
   receiptBtn.disabled = true;
   viewReceiptBtn.disabled = true;
   if (receiptDialog.open) receiptDialog.close();
   receiptJsonEl.textContent = "";
-  compareWrap.hidden = true;
-  compareRaw.removeAttribute("src");
-  compareRedacted.removeAttribute("src");
   dialogBoxDrag = null;
   drawDialogBoxes();
   resetBoxesBtn.disabled = true;
@@ -1419,7 +1429,15 @@ previewExpandBtn.addEventListener("click", () => {
   openImageDialog(previewImg.src, "Original screenshot", "original");
 });
 redactedExpandBtn.addEventListener("click", () => {
-  openImageDialog(redactedDataUrl, "Redacted screenshot", "redacted");
+  const showOriginal = Boolean(showOriginalToggle?.checked);
+  openImageDialog(
+    showOriginal ? originalDataUrl : redactedDataUrl,
+    showOriginal ? "Original screenshot" : "Redacted screenshot",
+    showOriginal ? "original" : "redacted"
+  );
+});
+showOriginalToggle.addEventListener("change", () => {
+  applyRedactedView();
 });
 closeImageBtn.addEventListener("click", () => imageDialog.close());
 imageDialog.addEventListener("click", (event) => {
@@ -1521,9 +1539,6 @@ resetBoxesBtn.addEventListener("click", async () => {
   manualBoxes = [];
   await refreshRedaction("on-device-redaction", 0);
   setStatus("Manual boxes cleared. Model boxes restored.", "");
-});
-compareRange.addEventListener("input", () => {
-  compareInner.style.setProperty("--pos", `${compareRange.value}%`);
 });
 boxCanvas.addEventListener("pointerdown", handlePointerDown);
 boxCanvas.addEventListener("pointermove", handlePointerMove);

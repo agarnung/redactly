@@ -54,7 +54,7 @@ Elementos de producto que se diseñaron desde el principio:
 - Drag-and-drop de imágenes y selector de archivo.
 - Tooltips en todas las acciones.
 - Stepper visual, badges de estado y barra de progreso.
-- Comparador antes/después con deslizador.
+- Toggle simple entre la imagen redactada y la original en el panel de imagen segura.
 - Editor manual de cajas para añadir o quitar redacciones.
 - Tarjeta de riesgo, ledger de llamadas y recibo descargable.
 - Enrutado **Quick/Deep**: preguntas cortas en local, complejas en cloud.
