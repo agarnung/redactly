@@ -408,8 +408,8 @@ tono `-2 Hz`.
 
 ### Pendiente antes del envío
 
-- [ ] Grabar el vídeo ≤3 min en inglés, 1920×1080, 30 fps, sin secretos ni PII.
-- [ ] Subir a YouTube como público, añadir subtítulos y probar en incógnito.
+- [x] Grabar el vídeo ≤3 min en inglés, 1920×1080, 30 fps, sin secretos ni PII.
+- [x] Subir a YouTube como público y añadir subtítulos: <https://youtu.be/RZJKePZXAxw>.
 - [ ] Enviar Devpost antes del **30-nov-2026 14:00 PT** y guardar confirmación.
 - [ ] Opcional: quota form (sprints 2/3) y clientes Android/iOS para
   consideración multiplataforma.

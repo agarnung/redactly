@@ -36,7 +36,7 @@ explicitly chooses.
 ## Hosted demo
 
 `https://redactly-dbb56.web.app` (Firebase Hosting; demo principal desplegada).
-See [`DEPLOY.md`](DEPLOY.md).
+Video demo: <https://youtu.be/RZJKePZXAxw>. See [`DEPLOY.md`](DEPLOY.md).
 
 All sample data is synthetic: no real PII, API keys or Google Cloud secrets are
 included in the repository.

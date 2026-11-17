@@ -16,11 +16,11 @@
 
 **What we learned:** Hybrid inference is not just a routing trick. The interesting part is deciding what must stay local, proving it, and making the cloud boundary explicit.
 
-**What's next:** Test the deployed demo with real Gemini Nano 4 and App Check, record a <3 minute English video and submit to #BuildHybridAI 2026. Later: Android and iOS clients for multi-platform consideration.
+**What's next:** Submit to #BuildHybridAI 2026. Later: Android and iOS clients for multi-platform consideration.
 
 **Built with:** Firebase AI Logic, Gemini Nano 4, App Check, JavaScript, HTML, CSS, Node.js, GitHub Actions.
 
-**Try it out:** <https://github.com/agarnung/redactly> (the app is at the repository root). Hosted demo: <https://redactly-dbb56.web.app> (Firebase Hosting).
+**Try it out:** <https://github.com/agarnung/redactly> (the app is at the repository root). Hosted demo: <https://redactly-dbb56.web.app> (Firebase Hosting). Video: <https://youtu.be/RZJKePZXAxw>.
 
 **Pre-existing code disclosure:** This is a new repository for the hackathon. The web app is new and does not use any pre-existing code. All sample data is synthetic.
 

@@ -110,19 +110,20 @@
 ## 5. Vídeo
 
 - [x] Diapositivas procedurales generadas: `video/slides/title-card.png`, `pipeline.png`, `end-card.png` y `thumbnail.png`.
-- [ ] Lee `redactly/VIDEO-SCRIPT.md`; prepara los tres samples y cierra pestañas personales.
-- [ ] Graba 1920×1080, 30 fps, sin mostrar config, debug token ni PII real.
-- [ ] Sigue los 8 planos; duración objetivo 2:25–2:40.
-- [ ] Comprueba duración con `ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 video.mp4`.
-- [ ] Sube a YouTube: **Público**, no “made for kids”, título y descripción en inglés.
-- [ ] Añade subtítulos `redactly/video/subtitles.srt`; idioma inglés.
-- [ ] Copia la URL y pégala en `redactly/SUBMISSION.md` y en el README.
-- [ ] Prueba el enlace en incógnito.
+- [x] Lee `redactly/VIDEO-SCRIPT.md`; prepara los tres samples y cierra pestañas personales.
+- [x] Graba 1920×1080, 30 fps, sin mostrar config, debug token ni PII real.
+- [x] Sigue los 8 planos; vídeo final de **2:41**.
+- [x] Comprueba duración con `ffprobe`: `video/redactly-demo.mp4` → **161,149 s**.
+- [x] Sube a YouTube: **Público**, no “made for kids”, título y descripción en inglés.
+- [x] Título y descripción listos: `video/youtube-title.txt` y `video/youtube-description.txt`.
+- [x] Subtítulos `video/subtitles.srt` listos; idioma inglés.
+- [x] Copia la URL del vídeo y pégala en `redactly/SUBMISSION.md` y en el README: <https://youtu.be/RZJKePZXAxw>.
+- [ ] Prueba el enlace en incógnito (YouTube responde 200 y oEmbed 200).
 
 ## 6. Devpost
 
 - [ ] Abre el challenge → **Submit project**.
-- [ ] Rellena nombre **Redactly**, elevator pitch, thumbnail (`redactly/screenshot.png`), vídeo, repo y hosted URL.
+- [ ] Rellena nombre **Redactly**, elevator pitch, thumbnail (`video/slides/thumbnail.png`), vídeo, repo y hosted URL.
 - [ ] **Built with:** Firebase AI Logic, Gemini Nano 4, App Check, JavaScript, HTML, CSS, Node.js.
 - [ ] Descripción: pega el texto inglés de `redactly/SUBMISSION.md`.
 - [ ] Añade **Pre-existing code disclosure** (repo nuevo, sin código preexistente) y **What was built during the submission period**.
