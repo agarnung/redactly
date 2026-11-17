@@ -289,6 +289,28 @@ Se probó el flujo completo en **Chrome 157.0.8103.78** (Linux, NVIDIA RTX PRO
 2000 Blackwell Laptop GPU, 8 GB VRAM) con el modelo on-device
 `OptGuideOnDeviceModel/2025.8.8.1141`.
 
+### 10.0 Cómo se probó
+
+1. Se cerró la otra ventana de Chrome para liberar VRAM y se lanzó una instancia
+   de prueba con un perfil temporal, el modelo on-device enlazado y el flag
+   `AIPromptAPIMultimodalInput`.
+2. Se abrió Chrome con remote debugging y se comprobó en Consolas:
+   ```js
+   await LanguageModel.availability()
+   ```
+   y la creación directa de sesiones de texto e imagen.
+3. Se sirvió la app en `http://127.0.0.1:8093/` y se automatizó el flujo con
+   CDP: cargar sample, pulsar **Redact on-device**, esperar el estado, leer
+   tarjeta de riesgo, hallazgos, recibo y ledger.
+4. Se repitieron los tres samples y los payloads `text`, `image` y `both`; se
+   capturaron las peticiones de red para comprobar que la imagen original no se
+   subía y que `X-Firebase-AppCheck` estaba presente.
+5. Se probó App Check de dos formas: token de depuración en local y reCAPTCHA
+   Enterprise en la demo alojada.
+6. Se probó el guard de fuga y el guard de imagen sin cajas con una imagen
+   sintética y con un sample.
+7. Se ejecutó `npm test` para las tres suites.
+
 ### 10.1 Gemini Nano real
 
 - `LanguageModel.availability()` → `available` para texto, imagen y salida.
