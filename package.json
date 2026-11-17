@@ -5,6 +5,7 @@
   "type": "module",
   "description": "Privacy-first screenshot assistant with Firebase AI Logic hybrid inference",
   "scripts": {
-    "test": "node tests-redaction.mjs && node tests-routing.mjs && node tests-receipt.mjs"
+    "test": "node scripts/test-report.mjs",
+    "test:raw": "node tests-redaction.mjs && node tests-routing.mjs && node tests-receipt.mjs"
   }
 }
