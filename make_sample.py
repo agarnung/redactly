@@ -68,7 +68,7 @@ SAMPLES = {
         ],
         "status_left": "main*   UTF-8   LF   TypeScript   Firebase AI Logic",
         "status_right": "Ln 4, Col 1   Spaces: 2",
-        "editor_size": 22,
+        "editor_size": 18,
         "terminal_size": 16,
         "editor": [
             [seg("# payments-service/.env — local development", MUTED)],
