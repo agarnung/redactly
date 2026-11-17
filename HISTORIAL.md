@@ -139,6 +139,8 @@ texto sanitizado. Si queda uno, la llamada se bloquea y se avisa al usuario.
 - Tarjeta de riesgo con redacciones, secretos enviados, bytes de imagen original
   y tamaño del payload.
 - Ledger local en memoria; nada se envía a analítica.
+- Las respuestas del modelo se renderizan como Markdown seguro: listas, código,
+  negritas y enlaces, sin HTML crudo.
 
 ---
 

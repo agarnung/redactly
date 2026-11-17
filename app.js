@@ -233,6 +233,109 @@ function showSnackbar(text, kind = "") {
   }, 4200);
 }
 
+function escapeHtml(text) {
+  return String(text ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  })[char]);
+}
+
+function renderInlineMarkdown(text) {
+  let html = String(text ?? "");
+  html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
+  html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+  html = html.replace(
+    /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,
+    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+  );
+  return html;
+}
+
+function renderMarkdown(text) {
+  const codeBlocks = [];
+  let source = String(text ?? "").replace(/\r\n/g, "\n");
+  source = source.replace(/```([\w-]*)\n?([\s\S]*?)```/g, (_, lang, code) => {
+    const index = codeBlocks.length;
+    codeBlocks.push(code);
+    return `\n\n@@CODEBLOCK${index}@@\n\n`;
+  });
+  const lines = escapeHtml(source).split("\n");
+  let html = "";
+  let list = "";
+  let paragraph = [];
+  const closeList = () => {
+    if (list) {
+      html += `</${list}>`;
+      list = "";
+    }
+  };
+  const flushParagraph = () => {
+    if (!paragraph.length) return;
+    html += `<p>${renderInlineMarkdown(paragraph.join("<br>"))}</p>`;
+    paragraph = [];
+  };
+  for (const line of lines) {
+    const trimmed = line.trim();
+    const code = trimmed.match(/^@@CODEBLOCK(\d+)@@$/);
+    if (code) {
+      flushParagraph();
+      closeList();
+      const content = codeBlocks[Number(code[1])] ?? "";
+      html += `<pre><code>${escapeHtml(content.replace(/\n$/, ""))}</code></pre>`;
+      continue;
+    }
+    if (!trimmed) {
+      flushParagraph();
+      closeList();
+      continue;
+    }
+    const heading = trimmed.match(/^(#{1,3})\s+(.+)$/);
+    if (heading) {
+      flushParagraph();
+      closeList();
+      const level = heading[1].length + 1;
+      html += `<h${level}>${renderInlineMarkdown(heading[2])}</h${level}>`;
+      continue;
+    }
+    const bullet = trimmed.match(/^[-*]\s+(.+)$/);
+    if (bullet) {
+      flushParagraph();
+      if (list !== "ul") {
+        closeList();
+        html += "<ul>";
+        list = "ul";
+      }
+      html += `<li>${renderInlineMarkdown(bullet[1])}</li>`;
+      continue;
+    }
+    const ordered = trimmed.match(/^\d+\.\s+(.+)$/);
+    if (ordered) {
+      flushParagraph();
+      if (list !== "ol") {
+        closeList();
+        html += "<ol>";
+        list = "ol";
+      }
+      html += `<li>${renderInlineMarkdown(ordered[1])}</li>`;
+      continue;
+    }
+    closeList();
+    paragraph.push(line);
+  }
+  flushParagraph();
+  closeList();
+  return html || `<p>${escapeHtml(source)}</p>`;
+}
+
+function renderMarkdownOutput(text) {
+  output.innerHTML = renderMarkdown(text);
+  output.classList.add("markdown-output");
+}
+
 function formatBytes(bytes) {
   const value = Number(bytes) || 0;
   if (value < 1024) return `${value} B`;
@@ -737,6 +840,7 @@ function resetRedactionState() {
   drawDialogBoxes();
   resetBoxesBtn.disabled = true;
   output.textContent = "The answer will appear here.";
+  output.classList.remove("markdown-output");
   clearRouteBadge();
   setStep(1);
   setAskEnabled(false);
@@ -1056,7 +1160,7 @@ async function quickAnswer(kind, question) {
     if (!configured) {
       await sleep(420);
       latency = performance.now() - start;
-      output.textContent = mockQuickAnswer(kind, question, latency);
+      renderMarkdownOutput(mockQuickAnswer(kind, question, latency));
     } else {
       const model = await ensureFirebase("on-device-answer");
       await initializeDevice(model);
@@ -1070,7 +1174,7 @@ async function quickAnswer(kind, question) {
         });
       }
       const result = await model.generateContent(parts);
-      output.textContent = result.response.text();
+      renderMarkdownOutput(result.response.text());
       latency = performance.now() - start;
     }
     counters.onDeviceCalls += 1;
@@ -1137,7 +1241,7 @@ async function cloudAnswer(kind, question) {
     if (!configured) {
       await sleep(1200);
       latency = performance.now() - start;
-      output.textContent = mockCloudAnswer(kind, question, payloadMode, latency);
+      renderMarkdownOutput(mockCloudAnswer(kind, question, payloadMode, latency));
     } else {
       const model = await ensureFirebase("cloud");
       const parts = buildCloudParts(kind, question, payloadMode);
@@ -1147,7 +1251,8 @@ async function cloudAnswer(kind, question) {
         text += chunk.text();
         output.textContent = text;
       }
-      if (!text) output.textContent = result.response.text();
+      if (!text) text = result.response.text();
+      renderMarkdownOutput(text);
       latency = performance.now() - start;
     }
     counters.cloudCalls += 1;

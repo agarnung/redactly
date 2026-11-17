@@ -37,6 +37,19 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .dot.ok{background:var(--green);box-shadow:0 0 0 4px rgba(34,197,94,.12)}
 .dot.err{background:var(--red);box-shadow:0 0 0 4px rgba(248,113,113,.12)}
 .output{white-space:pre-wrap;word-break:break-word;background:#08101d;border:1px solid var(--line);border-radius:14px;padding:18px;min-height:180px;color:#dbeafe;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;margin:0}
+.output.markdown-output{white-space:normal;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
+.markdown-output p{margin:0 0 10px}
+.markdown-output p:last-child{margin-bottom:0}
+.markdown-output h3,.markdown-output h4{margin:14px 0 8px;color:var(--text);letter-spacing:-.01em}
+.markdown-output h3{font-size:18px}
+.markdown-output h4{font-size:16px}
+.markdown-output ul,.markdown-output ol{margin:0 0 10px 22px;padding:0}
+.markdown-output li{margin:3px 0}
+.markdown-output code{background:#0b1626;border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:#dbeafe}
+.markdown-output pre{background:#050b14;border:1px solid var(--line);border-radius:10px;padding:12px;margin:0 0 10px;overflow:auto;white-space:pre-wrap}
+.markdown-output pre code{background:none;border:0;padding:0;font-size:12px}
+.markdown-output a{color:var(--blue)}
+.markdown-output strong{color:var(--text)}
 .foot{display:flex;justify-content:space-between;gap:18px;color:#64748b;font-size:12px;flex-wrap:wrap;margin-top:22px}
 @media (max-width:800px){.grid{grid-template-columns:1fr}h1{font-size:40px}.row{align-items:flex-start;flex-direction:column}.row select{max-width:none;width:100%}}
 .redacted-preview{min-height:180px}
@@ -227,6 +240,8 @@ input[type=file]:focus,textarea:focus,select:focus{border-color:var(--md-seconda
 :root[data-theme="light"] .route-badge,
 :root[data-theme="light"] .segmented,
 :root[data-theme="light"] .dialog{background:#f7f9fc;border-color:var(--line);color:var(--text)}
+:root[data-theme="light"] .markdown-output code{background:#eef3f9;color:#1e293b}
+:root[data-theme="light"] .markdown-output pre{background:#eef3f9}
 :root[data-theme="light"] .findings li,
 :root[data-theme="light"] .ledger li,
 :root[data-theme="light"] .output,
