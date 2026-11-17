@@ -1,1 +1,0 @@
-Detectors, Luhn, box normalization, leak check, routing policy and receipt hashing are covered by Node tests. The on-device model uses structured JSON output through Firebase AI Logic; the cloud leg is a separate, explicit step.

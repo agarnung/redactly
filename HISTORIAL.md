@@ -370,10 +370,12 @@ Se preparó toda la documentación de entrega:
 - `SUBMISSION.md` — texto de Devpost, pitch, built with, disclosure de código
   preexistente y qué se construyó durante el periodo.
 - `VIDEO-SCRIPT.md` — guion de 8 planos.
-- `VIDEO-RECORDING-GUIDE.md` — guía exacta de grabación, tiempos y edición.
+- `VIDEO-RECORDING-GUIDE.md` — guía exacta de grabación, tiempos y edición
+  (en el directorio padre del concurso).
 - `video/subtitles.srt` — subtítulos en inglés.
-- `video/audio/full-voiceover-timed.mp3` — voz completa de **160 s**.
-- `video/audio/01.mp3` … `08.mp3` — voz por plano.
+- `video/audio/full-voiceover-timed.mp3` — voz completa de **160 s**
+  (en el directorio padre del concurso, no en el repo).
+- `video/audio/01.mp3` … `08.mp3` — voz por plano (fuera del repo).
 - `CHECKLIST-ALEJANDRO.md` — checklist operativa con checkbox por paso.
 
 La voz se sintetizó con `edge-tts`, voz `en-US-AndrewNeural`, ritmo `-4 %` y

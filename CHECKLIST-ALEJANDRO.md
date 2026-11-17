@@ -3,7 +3,7 @@
 > **Última sesión:** repo publicado, historial de autoría corregido y **Firebase Hosting desplegado** en `https://redactly-dbb56.web.app` (200).
 > **Estado:** Gemini Nano real y App Check verificados (debug local + reCAPTCHA alojado). Pendiente: grabar vídeo y enviar Devpost. Firebase CLI se usa con `npx --yes firebase-tools` (sin instalación global).
 > **Historial completo:** [`HISTORIAL.md`](HISTORIAL.md).
-> **Vídeo:** [`VIDEO-RECORDING-GUIDE.md`](VIDEO-RECORDING-GUIDE.md) y voz en `video/audio/full-voiceover-timed.mp3`.
+> **Vídeo:** guía y voz en el directorio padre del concurso (`VIDEO-RECORDING-GUIDE.md` y `video/audio/`).
 > **Cierre:** **30-nov-2026, 14:00 PT = 23:00 CET**.
 > **Regla:** no enviar hasta que repo, demo y vídeo respondan **200** en incógnito.
 

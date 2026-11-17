@@ -1,1 +1,0 @@
-Every screenshot AI tool asks you to upload your whole screen. But screenshots are full of API keys, customer emails, IBANs and tokens. This one does the opposite.

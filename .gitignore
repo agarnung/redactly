@@ -16,4 +16,10 @@ video/*.webm
 
 .firebase/
 
-video/audio/*-padded.wav
+# Recording assets live outside the repo, in the contest folder.
+video/audio/
+*.mp3
+*.wav
+*.m4a
+*.aac
+*.flac
