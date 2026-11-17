@@ -106,6 +106,7 @@ La privacidad se implementó en capas:
 - Las etiquetas muestran solo el **tipo** de secreto, nunca el valor.
 - El editor manual permite añadir cajas arrastrando y quitar cajas haciendo clic.
 - La imagen redactada, el recibo y la tarjeta de riesgo se actualizan al instante.
+- La imagen original y la redactada se pueden abrir en un lightbox a tamaño completo.
 
 ### 4.3 Redacción de texto
 

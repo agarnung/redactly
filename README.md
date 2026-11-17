@@ -18,6 +18,7 @@ explicitly chooses.
 
 - On-device Gemini Nano redaction with structured output.
 - Visual redaction boxes plus a manual box editor.
+- Lightbox for the original and redacted images.
 - Text sanitization and a leak check before any cloud call.
 - Quick/Deep routing between `ONLY_ON_DEVICE` and `ONLY_IN_CLOUD`.
 - Selectable payload: sanitized text, redacted image or both.

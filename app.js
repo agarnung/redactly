@@ -29,8 +29,14 @@ const previewEmpty = $("previewEmpty");
 const previewEmptyText = $("previewEmptyText");
 const previewInner = $("previewInner");
 const previewImg = $("previewImg");
+const previewExpandBtn = $("previewExpandBtn");
 const boxCanvas = $("boxCanvas");
 const redactedPreview = $("redactedPreview");
+const redactedExpandBtn = $("redactedExpandBtn");
+const imageDialog = $("imageDialog");
+const imageDialogImg = $("imageDialogImg");
+const imageDialogTitle = $("imageDialogTitle");
+const closeImageBtn = $("closeImageBtn");
 const promptEl = $("prompt");
 const payloadEl = $("payload");
 const routeModeEl = $("routeMode");
@@ -406,6 +412,14 @@ function updateRiskCard() {
   riskCloud.textContent = String(counters.cloudCalls);
 }
 
+function openImageDialog(src, title) {
+  if (!src) return;
+  imageDialogImg.src = src;
+  imageDialogImg.alt = title || "Screenshot enlarged";
+  imageDialogTitle.textContent = title || "Screenshot";
+  if (!imageDialog.open) imageDialog.showModal();
+}
+
 function showPreview(file) {
   if (previewUrl) URL.revokeObjectURL(previewUrl);
   previewUrl = "";
@@ -413,6 +427,7 @@ function showPreview(file) {
   previewInner.hidden = true;
   previewImg.removeAttribute("src");
   boxCanvas.hidden = true;
+  if (previewExpandBtn) previewExpandBtn.hidden = true;
   if (!file) {
     previewEmpty.hidden = false;
     if (previewEmptyText) previewEmptyText.textContent = "Drop a PNG/JPEG or load a sample to start.";
@@ -425,6 +440,7 @@ function showPreview(file) {
   currentFileSize = file.size || 0;
   previewUrl = URL.createObjectURL(file);
   previewInner.hidden = false;
+  if (previewExpandBtn) previewExpandBtn.hidden = false;
   previewImg.onload = () => {
     currentImage = previewImg;
     boxCanvas.hidden = false;
@@ -530,6 +546,7 @@ function drawRedactedImage(img, boxes) {
   out.alt = "Redacted screenshot";
   out.src = redactedDataUrl;
   redactedPreview.appendChild(out);
+  if (redactedExpandBtn) redactedExpandBtn.hidden = false;
   compareRaw.src = originalDataUrl || img.src;
   compareRedacted.src = redactedDataUrl;
   compareWrap.hidden = false;
@@ -609,6 +626,7 @@ function resetRedactionState() {
   sanitizedEl.textContent = "Redact the screenshot first.";
   findingsEl.innerHTML = "<li>No redactions yet.</li>";
   redactedPreview.textContent = "Redact the screenshot first.";
+  if (redactedExpandBtn) redactedExpandBtn.hidden = true;
   downloadBtn.disabled = true;
   receiptHashEl.textContent = "sha256:—";
   receiptBtn.disabled = true;
@@ -1295,6 +1313,19 @@ viewReceiptBtn.addEventListener("click", () => {
 closeReceiptBtn.addEventListener("click", () => receiptDialog.close());
 receiptDialog.addEventListener("click", (event) => {
   if (event.target === receiptDialog) receiptDialog.close();
+});
+previewExpandBtn.addEventListener("click", () => {
+  openImageDialog(previewImg.src, "Original screenshot");
+});
+redactedExpandBtn.addEventListener("click", () => {
+  openImageDialog(redactedDataUrl, "Redacted screenshot");
+});
+closeImageBtn.addEventListener("click", () => imageDialog.close());
+imageDialog.addEventListener("click", (event) => {
+  if (event.target === imageDialog) imageDialog.close();
+});
+imageDialog.addEventListener("close", () => {
+  imageDialogImg.removeAttribute("src");
 });
 copyReceiptBtn.addEventListener("click", async () => {
   try {
