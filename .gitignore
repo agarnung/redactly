@@ -12,9 +12,11 @@ __pycache__/
 
 .firebase/
 
-# Local-only video production assets
+# Local-only working documents and video production assets
 video/
 VIDEO-SCRIPT.md
+HISTORIAL.md
+CHECKLIST-ALEJANDRO.md
 
 # Recording assets live outside the repo, in the contest folder.
 *.mp3

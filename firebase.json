@@ -14,6 +14,10 @@
       "sample-*-boxes.json",
       "SUBMISSION.md",
       "PRIVACY.md",
+      "HISTORIAL.md",
+      "CHECKLIST-ALEJANDRO.md",
+      "VIDEO-SCRIPT.md",
+      "video/**",
       "assets/screenshot*.png"
     ],
     "rewrites": [

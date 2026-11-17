@@ -99,9 +99,6 @@ the Web (Chrome) demo built for the hackathon:
 
 ## Documentation
 
-- [Project history (Spanish)](HISTORIAL.md): complete log from the initial idea
-  and Firebase setup to the real Gemini Nano/App Check tests, including decisions,
-  incidents and pending work.
 - [Privacy model](PRIVACY.md)
 - [Deploy](DEPLOY.md)
 - [Demo video](https://youtu.be/RZJKePZXAxw)
