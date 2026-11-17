@@ -49,7 +49,7 @@ npm test
 ./scripts/serve.sh
 ```
 
-Open the printed URL, click **Load sample**, **Redact on-device**, choose a
+Open the printed URL, choose a sample, click **Redact on-device**, choose a
 payload and click **Quick answer** or **Deep answer**. Mock mode needs no network,
 no Firebase project and no real secrets. This is the fastest way to review the flow.
 
@@ -66,8 +66,8 @@ no Firebase project and no real secrets. This is the fastest way to review the f
 6. For local App Check, register the debug token in Firebase Console or use a fixed
    UUID in `appCheckDebugToken`. Keep `appCheckDebugToken: false` for the hosted
    reCAPTCHA demo.
-7. `./scripts/serve.sh`, open the printed URL and click **Check on-device** and
-   **Redact on-device**.
+7. `./scripts/serve.sh`, open the printed URL and click **Redact on-device**.
+   The on-device badge checks Gemini Nano automatically; click it to recheck.
 8. In DevTools → Network, Firebase calls must carry `X-Firebase-AppCheck`. The raw
    screenshot must never be uploaded.
 

@@ -54,7 +54,6 @@ const routeBadgeEl = $("routeBadge");
 const downloadBtn = $("downloadBtn");
 const resetBoxesBtn = $("resetBoxesBtn");
 const receiptHashEl = $("receiptHash");
-const receiptBtn = $("receiptBtn");
 const sampleSelect = $("sampleSelect");
 const showOriginalToggle = $("showOriginalToggle");
 const showOriginalLabel = $("showOriginalLabel");
@@ -62,8 +61,6 @@ const riskRedactions = $("riskRedactions");
 const riskSent = $("riskSent");
 const riskRaw = $("riskRaw");
 const riskPayload = $("riskPayload");
-const riskDevice = $("riskDevice");
-const riskCloud = $("riskCloud");
 const riskNote = $("riskNote");
 const progressEl = $("progress");
 const snackbarEl = $("snackbar");
@@ -215,7 +212,6 @@ function setBusy(busy) {
     "explainBtn",
     "quickBtn",
     "deepBtn",
-    "availabilityBtn",
   ]) {
     const el = $(id);
     if (el) el.disabled = busy || (ASK_IDS.includes(id) && !lastSanitized);
@@ -409,8 +405,6 @@ function updateRiskCard() {
   riskRaw.textContent = "0 B";
   riskPayload.textContent = formatBytes(payloadBytes());
   riskNote.textContent = `Raw screenshot on device: ${formatBytes(currentFileSize)}.`;
-  riskDevice.textContent = String(counters.onDeviceCalls);
-  riskCloud.textContent = String(counters.cloudCalls);
 }
 
 function openImageDialog(src, title, mode = "original") {
@@ -708,7 +702,6 @@ async function refreshReceipt(route, latencyMs) {
     onDeviceCalls: counters.onDeviceCalls,
   });
   receiptHashEl.textContent = receiptShortHash(lastReceipt);
-  receiptBtn.disabled = false;
   viewReceiptBtn.disabled = false;
 }
 
@@ -737,7 +730,6 @@ function resetRedactionState() {
   applyRedactedView();
   downloadBtn.disabled = true;
   receiptHashEl.textContent = "sha256:—";
-  receiptBtn.disabled = true;
   viewReceiptBtn.disabled = true;
   if (receiptDialog.open) receiptDialog.close();
   receiptJsonEl.textContent = "";
@@ -1360,7 +1352,6 @@ if (dropzone) {
 sampleSelect.addEventListener("change", () => {
   loadSample(sampleSelect.value);
 });
-$("sampleBtn").addEventListener("click", () => loadSample(sampleSelect.value));
 bindSegmented(payloadGroup, payloadEl);
 bindSegmented(routeModeGroup, routeModeEl);
 
@@ -1398,14 +1389,22 @@ $("deepBtn").addEventListener("click", () => {
 $("askBtn").addEventListener("click", () => answer("ask"));
 $("translateBtn").addEventListener("click", () => answer("translate"));
 $("explainBtn").addEventListener("click", () => answer("explain"));
-$("availabilityBtn").addEventListener("click", async () => {
-  setBusy(true);
+async function recheckOnDevice() {
   const availability = await checkOnDevice();
   setStatus(
     `On-device model availability: ${availability}`,
     availability === "available" ? "ok" : ""
   );
-  setBusy(false);
+}
+deviceBadge.setAttribute("role", "button");
+deviceBadge.tabIndex = 0;
+deviceBadge.title = "Check on-device again";
+deviceBadge.addEventListener("click", recheckOnDevice);
+deviceBadge.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    recheckOnDevice();
+  }
 });
 downloadBtn.addEventListener("click", () => {
   if (!redactedDataUrl) return;
@@ -1414,7 +1413,6 @@ downloadBtn.addEventListener("click", () => {
   link.download = "screenshot-redacted.png";
   link.click();
 });
-receiptBtn.addEventListener("click", downloadReceipt);
 downloadReceiptBtn.addEventListener("click", downloadReceipt);
 viewReceiptBtn.addEventListener("click", () => {
   if (!lastReceipt) return;
@@ -1583,8 +1581,8 @@ if (configured) {
 
 if (params.has("autodemo")) {
   const quick = params.get("autodemo") === "quick";
-  $("sampleBtn").click();
-  setTimeout(() => $("redactBtn").click(), 700);
+  loadSample(sampleSelect.value);
+  setTimeout(() => $("redactBtn").click(), 900);
   setTimeout(() => (quick ? $("quickBtn") : $("explainBtn")).click(), 2400);
   if (params.has("receipt")) {
     setTimeout(() => {

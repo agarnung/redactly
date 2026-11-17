@@ -110,7 +110,7 @@ For on-device inference:
 2. Restart Chrome.
 3. Open DevTools → Console and run `await LanguageModel.availability()`.
 4. If `downloadable`, run `await LanguageModel.create()`.
-5. Click **Check on-device**.
+5. Click the **on-device** badge to recheck Gemini Nano.
 
 For the optional real Firebase mode, fill `firebase-config.js` and register the
 App Check debug token. Do not show the config or debug token on camera.

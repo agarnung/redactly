@@ -73,7 +73,7 @@
 - [x] `chrome://flags/#prompt-api-for-gemini-nano-multimodal-input` → **Enabled**.
 - [x] DevTools → Console: `await LanguageModel.availability()` → `available`.
 - [x] `await LanguageModel.create()` probado para texto e imagen.
-- [x] En la app: **Check on-device** → `on-device: available`.
+- [x] En la app: el badge **on-device** muestra `available`; clic en el badge para recomprobar.
 - [x] Modelo `2025.8.8.1141` instalado; si hay OOM, cerrar otra ventana de Chrome.
 
 ## 3. Probar el flujo real

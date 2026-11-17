@@ -50,6 +50,8 @@ Se definió un flujo de tres pasos visible en la interfaz:
 Elementos de producto que se diseñaron desde el principio:
 
 - Interfaz **sin build**, estilo Material Design 3, responsive y con tema claro/oscuro.
+- Selector de samples con **auto-carga**, badge on-device **recomprobable** y un solo
+  botón **Receipt**.
 - Selector de samples sintéticos: **API 401**, **Support ticket** y **Bank statement**.
 - Drag-and-drop de imágenes y selector de archivo.
 - Tooltips en todas las acciones.
@@ -134,8 +136,8 @@ texto sanitizado. Si queda uno, la llamada se bloquea y se avisa al usuario.
 - Recibo SHA-256 del texto sanitizado y de la imagen redactada.
 - Campos `rawImageUploaded`, `rawImageBytes`, `secretsSent`, `redactions`,
   `appCheck`, `cloudCalls` y `onDeviceCalls`.
-- Tarjeta de riesgo con redacciones, secretos enviados, bytes de imagen original,
-  tamaño del payload y llamadas.
+- Tarjeta de riesgo con redacciones, secretos enviados, bytes de imagen original
+  y tamaño del payload.
 - Ledger local en memoria; nada se envía a analítica.
 
 ---

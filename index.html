@@ -56,7 +56,6 @@
               <option value="sample-support.png">Support ticket</option>
               <option value="sample-bank.png">Bank statement</option>
             </select>
-            <button id="sampleBtn" class="ghost small" data-tip="Load the selected synthetic sample">Load sample</button>
           </div>
           <div class="preview" id="preview">
             <div class="preview-empty" id="previewEmpty">
@@ -73,19 +72,12 @@
             </div>
           </div>
           <div class="hint">Drag on the screenshot to add a manual redaction box; click a box to remove it.</div>
-          <div class="row sample-row">
-            <button id="availabilityBtn" class="ghost small" data-tip="Check Gemini Nano availability">Check on-device</button>
-          </div>
           <span class="tip-wrap" data-tip="Remove all manual redaction boxes"><button id="resetBoxesBtn" class="ghost small" disabled>Reset manual boxes</button></span>
         </div>
 
         <div>
           <label class="label" for="prompt">Question</label>
           <textarea id="prompt" rows="4" placeholder="Translate the visible text, explain this error, or ask about the UI…"></textarea>
-          <div class="privacy-note">
-            <strong>Privacy pipeline:</strong> the raw screenshot is processed on-device.
-            The cloud receives only the payload you choose below; the raw image is never uploaded.
-          </div>
           <div class="row buttons">
             <button id="redactBtn" class="primary" data-tip="Redact the screenshot on-device">Redact on-device</button>
           </div>
@@ -145,8 +137,6 @@
           <div><strong id="riskSent">0</strong><span>secrets sent</span></div>
           <div><strong id="riskRaw">0 B</strong><span>raw image uploaded</span></div>
           <div><strong id="riskPayload">0 B</strong><span>payload</span></div>
-          <div><strong id="riskDevice">0</strong><span>on-device calls</span></div>
-          <div><strong id="riskCloud">0</strong><span>cloud calls</span></div>
         </div>
         <div class="risk-note" id="riskNote">Raw screenshot on device: 0 B.</div>
       </div>
@@ -173,8 +163,7 @@
           <div class="label">Privacy receipt</div>
           <div class="receipt-row">
             <code id="receiptHash">sha256:—</code>
-            <span class="tip-wrap" data-tip="View the SHA-256 privacy receipt"><button id="viewReceiptBtn" class="ghost small" disabled>View receipt</button></span>
-            <span class="tip-wrap" data-tip="Download the receipt JSON"><button id="receiptBtn" class="ghost small" disabled>Download receipt JSON</button></span>
+            <span class="tip-wrap" data-tip="Open the SHA-256 privacy receipt"><button id="viewReceiptBtn" class="ghost small" disabled>Receipt</button></span>
           </div>
           <div class="label receipt-label">Sanitized text sent to the cloud</div>
           <pre id="sanitized" class="output small-output">Redact the screenshot first.</pre>
@@ -189,11 +178,7 @@
         <div>
           <div class="label">Privacy ledger (every cloud call)</div>
           <ul id="ledger" class="ledger"><li>No cloud calls yet.</li></ul>
-          <div class="guarantees">
-            <div>Raw screenshot uploaded: <strong>never</strong></div>
-            <div>Leak check before every cloud call: <strong>on</strong></div>
-            <div>Visual boxes drawn: <strong>on-device</strong></div>
-          </div>
+          <div class="guarantees"><strong>Raw image never uploaded</strong> · leak check on · boxes on-device</div>
         </div>
       </div>
     </section>
@@ -204,7 +189,6 @@
         <a href="https://developer.chrome.com/docs/ai/built-in" target="_blank" rel="noopener noreferrer">Gemini Nano on-device (Chrome)</a>
         + <a href="https://firebase.google.com/docs/ai-logic/models" target="_blank" rel="noopener noreferrer">Gemini cloud fallback</a>
       </span>
-      <span>No screenshot leaves the device unless you explicitly choose a redacted image payload.</span>
     </footer>
   </main>
 
