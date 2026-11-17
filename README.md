@@ -95,9 +95,9 @@ the Web (Chrome) demo built for the hackathon:
 
 ## Documentation
 
-- [Project history (Spanish)](HISTORIAL.md): full step-by-step log from the first
-  commit to the Firebase Hosting deploy, including decisions, incidents and
-  pending work.
+- [Project history (Spanish)](HISTORIAL.md): complete log from the initial idea
+  and Firebase setup to the real Gemini Nano/App Check tests, including decisions,
+  incidents and pending work.
 - [Privacy model](PRIVACY.md)
 - [Deploy](DEPLOY.md)
 - [Video script](VIDEO-SCRIPT.md)
