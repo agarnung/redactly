@@ -35,6 +35,7 @@ const redactedPreview = $("redactedPreview");
 const redactedExpandBtn = $("redactedExpandBtn");
 const imageDialog = $("imageDialog");
 const imageDialogImg = $("imageDialogImg");
+const imageDialogCanvas = $("imageDialogCanvas");
 const imageDialogTitle = $("imageDialogTitle");
 const closeImageBtn = $("closeImageBtn");
 const promptEl = $("prompt");
@@ -191,6 +192,8 @@ let ledger = [];
 let counters = { cloudCalls: 0, onDeviceCalls: 0 };
 let previewUrl = "";
 let boxDrag = null;
+let imageDialogMode = "original";
+let dialogBoxDrag = null;
 
 function setStatus(text, kind = "") {
   statusEl.textContent = text;
@@ -412,12 +415,23 @@ function updateRiskCard() {
   riskCloud.textContent = String(counters.cloudCalls);
 }
 
-function openImageDialog(src, title) {
+function openImageDialog(src, title, mode = "original") {
   if (!src) return;
+  imageDialogMode = mode;
+  dialogBoxDrag = null;
+  imageDialogCanvas.hidden = mode !== "original";
+  imageDialogImg.onload = () => {
+    syncDialogCanvas();
+    drawDialogBoxes();
+  };
   imageDialogImg.src = src;
   imageDialogImg.alt = title || "Screenshot enlarged";
   imageDialogTitle.textContent = title || "Screenshot";
   if (!imageDialog.open) imageDialog.showModal();
+  requestAnimationFrame(() => {
+    syncDialogCanvas();
+    drawDialogBoxes();
+  });
 }
 
 function showPreview(file) {
@@ -463,13 +477,7 @@ function syncCanvas() {
   drawBoxes();
 }
 
-function drawBoxes() {
-  if (!boxCanvas.width || !boxCanvas.height) return;
-  const ctx = boxCanvas.getContext("2d");
-  const width = boxCanvas.width;
-  const height = boxCanvas.height;
-  ctx.clearRect(0, 0, width, height);
-
+function paintBoxes(ctx, width, height, drag) {
   const paint = (box, color, label) => {
     const x = Math.max(0, Math.min(width, box.x * width));
     const y = Math.max(0, Math.min(height, box.y * height));
@@ -495,17 +503,103 @@ function drawBoxes() {
   for (const box of modelBoxes) paint(box, "248,113,113", box.type);
   for (const box of manualBoxes) paint(box, "34,197,94", "manual");
 
-  if (boxDrag?.mode === "add") {
-    const x = Math.min(boxDrag.startX, boxDrag.currentX) * width;
-    const y = Math.min(boxDrag.startY, boxDrag.currentY) * height;
-    const w = Math.abs(boxDrag.currentX - boxDrag.startX) * width;
-    const h = Math.abs(boxDrag.currentY - boxDrag.startY) * height;
+  if (drag?.mode === "add") {
+    const x = Math.min(drag.startX, drag.currentX) * width;
+    const y = Math.min(drag.startY, drag.currentY) * height;
+    const w = Math.abs(drag.currentX - drag.startX) * width;
+    const h = Math.abs(drag.currentY - drag.startY) * height;
     ctx.strokeStyle = "rgba(34,197,94,.95)";
     ctx.setLineDash([6, 4]);
     ctx.lineWidth = 2;
     ctx.strokeRect(x, y, w, h);
     ctx.setLineDash([]);
   }
+}
+
+function drawBoxes() {
+  if (!boxCanvas.width || !boxCanvas.height) return;
+  const ctx = boxCanvas.getContext("2d");
+  ctx.clearRect(0, 0, boxCanvas.width, boxCanvas.height);
+  paintBoxes(ctx, boxCanvas.width, boxCanvas.height, boxDrag);
+}
+
+function dialogPointFromEvent(event) {
+  const rect = imageDialogCanvas.getBoundingClientRect();
+  return {
+    x: Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width)),
+    y: Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height)),
+  };
+}
+
+function dialogFindBoxAt(x, y) {
+  const boxes = [...modelBoxes, ...manualBoxes];
+  for (let i = boxes.length - 1; i >= 0; i -= 1) {
+    const box = boxes[i];
+    if (x >= box.x && x <= box.x + box.w && y >= box.y && y <= box.y + box.h) {
+      return box;
+    }
+  }
+  return null;
+}
+
+function syncDialogCanvas() {
+  if (imageDialogMode !== "original" || imageDialogCanvas.hidden || !imageDialogImg.clientWidth) return;
+  imageDialogCanvas.width = Math.round(imageDialogImg.clientWidth);
+  imageDialogCanvas.height = Math.round(imageDialogImg.clientHeight);
+  drawDialogBoxes();
+}
+
+function drawDialogBoxes() {
+  if (imageDialogMode !== "original" || imageDialogCanvas.hidden) return;
+  if (!imageDialogCanvas.width || !imageDialogCanvas.height) return;
+  const ctx = imageDialogCanvas.getContext("2d");
+  ctx.clearRect(0, 0, imageDialogCanvas.width, imageDialogCanvas.height);
+  paintBoxes(ctx, imageDialogCanvas.width, imageDialogCanvas.height, dialogBoxDrag);
+}
+
+function dialogPointerDown(event) {
+  if (imageDialogMode !== "original" || !currentImage) return;
+  const point = dialogPointFromEvent(event);
+  const hit = dialogFindBoxAt(point.x, point.y);
+  dialogBoxDrag = {
+    mode: hit ? "remove" : "add",
+    box: hit,
+    startX: point.x,
+    startY: point.y,
+    currentX: point.x,
+    currentY: point.y,
+    moved: false,
+    pointerId: event.pointerId,
+  };
+  try {
+    imageDialogCanvas.setPointerCapture(event.pointerId);
+  } catch {
+    /* synthetic pointer events in tests */
+  }
+  drawDialogBoxes();
+}
+
+function dialogPointerMove(event) {
+  if (!dialogBoxDrag) return;
+  const point = dialogPointFromEvent(event);
+  dialogBoxDrag.currentX = point.x;
+  dialogBoxDrag.currentY = point.y;
+  if (
+    Math.abs(point.x - dialogBoxDrag.startX) > 0.005 ||
+    Math.abs(point.y - dialogBoxDrag.startY) > 0.005
+  ) {
+    dialogBoxDrag.moved = true;
+  }
+  drawDialogBoxes();
+}
+
+async function dialogPointerUp(event) {
+  if (!dialogBoxDrag) return;
+  const point = dialogPointFromEvent(event);
+  const drag = dialogBoxDrag;
+  dialogBoxDrag = null;
+  await commitBoxDrag(drag, point);
+  drawDialogBoxes();
 }
 
 function drawRedactions(ctx, boxes, width, height) {
@@ -585,6 +679,7 @@ async function refreshRedaction(route = lastRoute || "on-device-redaction", late
   lastBoxes = [...modelBoxes, ...manualBoxes];
   drawRedactedImage(currentImage, lastBoxes);
   drawBoxes();
+  drawDialogBoxes();
   resetBoxesBtn.disabled = manualBoxes.length === 0;
   updateRiskCard();
   await refreshReceipt(route, latencyMs);
@@ -636,6 +731,8 @@ function resetRedactionState() {
   compareWrap.hidden = true;
   compareRaw.removeAttribute("src");
   compareRedacted.removeAttribute("src");
+  dialogBoxDrag = null;
+  drawDialogBoxes();
   resetBoxesBtn.disabled = true;
   output.textContent = "The answer will appear here.";
   clearRouteBadge();
@@ -1147,11 +1244,7 @@ function handlePointerMove(event) {
   drawBoxes();
 }
 
-async function handlePointerUp(event) {
-  if (!boxDrag) return;
-  const point = pointFromEvent(event);
-  const drag = boxDrag;
-  boxDrag = null;
+async function commitBoxDrag(drag, point) {
   if (drag.mode === "add") {
     if (drag.moved) {
       const x = Math.min(drag.startX, point.x);
@@ -1171,6 +1264,14 @@ async function handlePointerUp(event) {
     setStatus("Box removed. Redacted image, receipt and risk card updated.", "ok");
     showSnackbar("Box removed. Redacted image and receipt updated.", "ok");
   }
+}
+
+async function handlePointerUp(event) {
+  if (!boxDrag) return;
+  const point = pointFromEvent(event);
+  const drag = boxDrag;
+  boxDrag = null;
+  await commitBoxDrag(drag, point);
   drawBoxes();
 }
 
@@ -1315,17 +1416,26 @@ receiptDialog.addEventListener("click", (event) => {
   if (event.target === receiptDialog) receiptDialog.close();
 });
 previewExpandBtn.addEventListener("click", () => {
-  openImageDialog(previewImg.src, "Original screenshot");
+  openImageDialog(previewImg.src, "Original screenshot", "original");
 });
 redactedExpandBtn.addEventListener("click", () => {
-  openImageDialog(redactedDataUrl, "Redacted screenshot");
+  openImageDialog(redactedDataUrl, "Redacted screenshot", "redacted");
 });
 closeImageBtn.addEventListener("click", () => imageDialog.close());
 imageDialog.addEventListener("click", (event) => {
   if (event.target === imageDialog) imageDialog.close();
 });
 imageDialog.addEventListener("close", () => {
+  dialogBoxDrag = null;
+  imageDialogCanvas.hidden = true;
   imageDialogImg.removeAttribute("src");
+});
+imageDialogCanvas.addEventListener("pointerdown", dialogPointerDown);
+imageDialogCanvas.addEventListener("pointermove", dialogPointerMove);
+imageDialogCanvas.addEventListener("pointerup", dialogPointerUp);
+imageDialogCanvas.addEventListener("pointercancel", () => {
+  dialogBoxDrag = null;
+  drawDialogBoxes();
 });
 copyReceiptBtn.addEventListener("click", async () => {
   try {
@@ -1422,7 +1532,10 @@ boxCanvas.addEventListener("pointercancel", () => {
   boxDrag = null;
   drawBoxes();
 });
-window.addEventListener("resize", syncCanvas);
+window.addEventListener("resize", () => {
+  syncCanvas();
+  syncDialogCanvas();
+});
 
 configBadge.textContent = configured ? "config: Firebase AI Logic" : "config: mock mode";
 configBadge.style.color = configured ? "var(--green)" : "var(--amber)";

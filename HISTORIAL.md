@@ -107,6 +107,7 @@ La privacidad se implementó en capas:
 - El editor manual permite añadir cajas arrastrando y quitar cajas haciendo clic.
 - La imagen redactada, el recibo y la tarjeta de riesgo se actualizan al instante.
 - La imagen original y la redactada se pueden abrir en un lightbox a tamaño completo.
+- En el lightbox de la imagen original se mantienen las cajas y el editor manual, escalados al tamaño visible.
 
 ### 4.3 Redacción de texto
 

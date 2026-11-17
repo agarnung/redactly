@@ -228,7 +228,10 @@
       <button id="closeImageBtn" class="icon-btn" aria-label="Close image" data-tip="Close image">×</button>
     </div>
     <div class="image-dialog-body">
-      <img id="imageDialogImg" alt="Screenshot enlarged">
+      <div class="image-dialog-stage" id="imageDialogStage">
+        <img id="imageDialogImg" alt="Screenshot enlarged">
+        <canvas id="imageDialogCanvas" aria-label="Redaction boxes in the lightbox: drag to add, click to remove" hidden></canvas>
+      </div>
     </div>
   </dialog>
 
