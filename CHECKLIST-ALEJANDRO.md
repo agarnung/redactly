@@ -105,14 +105,15 @@
 - [ ] Prueba `?autodemo=quick&sample=sample-support.png&payload=text`.
 - [ ] Prueba `?autodemo=1&sample=sample-bank.png&payload=image`.
 
-### Opción B — GitHub Pages (fallback)
+### Opción B — GitHub Pages (solo fallback manual)
 
-> **Estado actual:** el workflow `Deploy to GitHub Pages` falla en `actions/configure-pages@v5` porque Pages no está habilitado (la API `/pages` da 404). Los tests sí pasan. Es normal que el workflow se lance en cada push, pero no puede completarse hasta activar Pages.
+> **Decisión:** usar **Firebase Hosting**, no GitHub Pages. Pages queda solo como emergencia. El workflow ya no se lanza en cada push: ahora es `workflow_dispatch`.
 
-- [ ] GitHub → repo → **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-- [ ] Actions → **Deploy to GitHub Pages** → **Re-run all jobs**.
+- [x] Workflow `pages.yml` cambiado a disparo manual.
+- [ ] No activar Pages salvo que Firebase Hosting falle.
+- [ ] Si se activa: GitHub → repo → **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+- [ ] Actions → **Deploy to GitHub Pages** → **Run workflow**.
 - [ ] Verificar `https://agarnung.github.io/redactly/` → **200**.
-- [ ] Si no vas a usar Pages, desactiva o elimina `pages.yml` para que no falle en cada push.
 - [ ] **Settings → Secrets and variables → Actions → New repository secret**: `FIREBASE_CONFIG_JS`, valor = contenido completo de `firebase-config.js`.
 - [ ] **Actions → Deploy to GitHub Pages → Run workflow**.
 - [ ] Abre `https://agarnung.github.io/redactly/` y comprueba que carga.

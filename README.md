@@ -30,8 +30,8 @@ explicitly chooses.
 
 ## Hosted demo
 
-`https://redactly-dbb56.web.app` (Firebase Hosting, pendiente de deploy) or
-`https://agarnung.github.io/redactly/` (GitHub Pages, pendiente de deploy). See [`DEPLOY.md`](DEPLOY.md).
+`https://redactly-dbb56.web.app` (Firebase Hosting; demo principal, pendiente de deploy).
+GitHub Pages queda como fallback manual y no se usa por defecto. See [`DEPLOY.md`](DEPLOY.md).
 
 All sample data is synthetic: no real PII, API keys or Google Cloud secrets are
 included in the repository.
