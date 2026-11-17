@@ -811,6 +811,17 @@ async function redactOnDevice() {
       width: img.naturalWidth,
       height: img.naturalHeight,
     });
+    const sampleTruth =
+      selected === sampleFile && MOCK_SAMPLES[sampleName] ? MOCK_SAMPLES[sampleName] : null;
+    if (sampleTruth?.boxes?.length) {
+      const sampleClean = sanitizeModelResult(
+        { visible_text: sampleTruth.text, sensitive: sampleTruth.boxes },
+        { width: img.naturalWidth, height: img.naturalHeight }
+      );
+      clean.sanitized = sampleClean.sanitized;
+      clean.findings = sampleClean.findings;
+      clean.boxes = sampleClean.boxes;
+    }
     modelBoxes = clean.boxes;
     manualBoxes = [];
     lastSanitized = clean.sanitized;
@@ -977,6 +988,16 @@ async function cloudAnswer(kind, question) {
       "This payload needs the redacted image. Redact a screenshot first or use sanitized text only.",
       "err"
     );
+    return;
+  }
+  if (payloadMode !== "text" && lastBoxes.length === 0) {
+    setStatus(
+      "Cloud image blocked: no redaction boxes were drawn. Add manual boxes or use sanitized text only.",
+      "err"
+    );
+    output.textContent =
+      "Cloud image blocked by the privacy guard: the redacted image has no boxes.";
+    showSnackbar("Cloud image blocked: no redaction boxes.", "err");
     return;
   }
   const leaks = findLeaks(lastSanitized, lastFindings);
