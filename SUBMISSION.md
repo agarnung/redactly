@@ -16,7 +16,7 @@
 
 **What we learned:** Hybrid inference is not just a routing trick. The interesting part is deciding what must stay local, proving it, and making the cloud boundary explicit.
 
-**What's next:** Enable the hosted demo, test with real Gemini Nano 4 and App Check, record a <3 minute English video and submit to #BuildHybridAI 2026. Later: Android and iOS clients for multi-platform consideration.
+**What's next:** Test the deployed demo with real Gemini Nano 4 and App Check, record a <3 minute English video and submit to #BuildHybridAI 2026. Later: Android and iOS clients for multi-platform consideration.
 
 **Built with:** Firebase AI Logic, Gemini Nano 4, App Check, JavaScript, HTML, CSS, Node.js, GitHub Actions.
 

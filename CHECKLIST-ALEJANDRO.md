@@ -91,19 +91,19 @@
 
 ### Opción A — Firebase Hosting (recomendada)
 
-- [ ] `npm i -g firebase-tools`
-- [ ] `firebase login`
+- [x] `npx --yes firebase-tools` (sin instalación global)
+- [x] `npx firebase-tools login` como `agarnungm@gmail.com`
 - [x] `cd /opt/proyectos_personales/concursos/programacion/02-firebase-buildhybridai/redactly`
-- [ ] `firebase use --add` → elige `redactly-dbb56` → alias `default`.
-- [ ] No ejecutes `firebase init` si te ofrece sobrescribir `firebase.json`; ya existe con `"public": "."`.
-- [ ] Pon `appCheckDebugToken: false` en `firebase-config.js` antes de desplegar.
-- [ ] `firebase deploy --only hosting`
-- [ ] Abre `https://redactly-dbb56.web.app`.
+- [x] `npx firebase-tools use redactly-dbb56`
+- [x] No ejecutar `firebase init`; `firebase.json` ya existe con `"public": "."`.
+- [x] `appCheckDebugToken: false` durante el deploy (restaurado después para local).
+- [x] `npx firebase-tools deploy --only hosting`
+- [x] Abre `https://redactly-dbb56.web.app` → **200**.
 - [ ] Añade `redactly-dbb56.web.app` y `redactly-dbb56.firebaseapp.com` a reCAPTCHA.
-- [ ] Verifica que el deploy incluye `firebase-config.js` pero git sigue sin verlo.
-- [ ] Prueba `?autodemo=1&payload=both`.
-- [ ] Prueba `?autodemo=quick&sample=sample-support.png&payload=text`.
-- [ ] Prueba `?autodemo=1&sample=sample-bank.png&payload=image`.
+- [x] Verifica que el deploy incluye `firebase-config.js` pero git sigue sin verlo.
+- [x] Prueba `?autodemo=1&payload=both` → **200**.
+- [x] Prueba `?autodemo=quick&sample=sample-support.png&payload=text`.
+- [x] Prueba `?autodemo=1&sample=sample-bank.png&payload=image`.
 
 ### Opción B — GitHub Pages (solo fallback manual)
 

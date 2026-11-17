@@ -13,3 +13,5 @@ video/*.webm
 *.webm
 *.mkv
 *.avi
+
+.firebase/
